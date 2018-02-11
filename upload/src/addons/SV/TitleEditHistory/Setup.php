@@ -7,15 +7,6 @@ use XF\Db\Schema\Alter;
 
 class Setup extends AbstractSetup
 {
-	public function checkRequirements(&$errors = [], &$warnings = []) {
-		$required = '5.4.0';
-		$phpversion = phpversion();
-		if (version_compare($phpversion, $required, '<'))
-		{
-			$errors[] = "PHP {$required} or newer is required. {$phpversion} does not meet this requirement. Please ask your host to upgrade PHP";
-		}
-	}
-
 	public function install(array $stepParams = [])
 	{
 		$this->schemaManager()->alterTable('xf_thread', function(Alter $table) {
@@ -23,7 +14,6 @@ class Setup extends AbstractSetup
 			$table->addColumn('thread_title_last_edit_date')->type('int')->nullable(false)->setDefault(0);
 			$table->addColumn('thread_title_last_edit_user_id')->type('int')->nullable(false)->setDefault(0);
 		});
-
 	}
 
 	public function upgrade(array $stepParams = [])
