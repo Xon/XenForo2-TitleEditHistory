@@ -1,0 +1,9 @@
+{
+    "template": "thread_view",
+    "description": "",
+    "execution_order": 10,
+    "enabled": true,
+    "action": "preg_replace",
+    "find": "/(<xf:description meta=\"false\">.*?)(<\\/ul>\\s*<\\/xf:description>)/s",
+    "replace": "$1\n<xf:include template=\"thread_view_tools_title_edit_history\"/>\n$2"
+}
