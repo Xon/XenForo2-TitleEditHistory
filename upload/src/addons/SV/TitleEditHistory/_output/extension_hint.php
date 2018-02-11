@@ -12,3 +12,8 @@ namespace SV\TitleEditHistory\XF\Pub\Controller
 {
 	class XFCP_Thread extends \XF\Pub\Controller\Thread {}
 }
+
+namespace SV\TitleEditHistory\XF\Service\Thread
+{
+	class XFCP_Editor extends \XF\Service\Thread\Editor {}
+}
