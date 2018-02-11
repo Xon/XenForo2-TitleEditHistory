@@ -98,6 +98,12 @@ class Thread extends AbstractHandler
 		return $content->get('thread_title_edit_count');
 	}
 
-
-
+    /**
+     * @return array
+     */
+    public function getEntityWith()
+    {
+        $visitor = \XF::visitor();
+        return ['Forum', 'Forum.Node.Permissions|' . $visitor->permission_combination_id];
+    }
 }
