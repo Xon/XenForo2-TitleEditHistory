@@ -4,6 +4,12 @@ namespace SV\TitleEditHistory\XF\Entity;
 
 use XF\Mvc\Entity\Structure;
 
+/**
+ *
+ * @property int thread_title_last_edit_date
+ * @property int thread_title_last_edit_user_id
+ * @property int thread_title_edit_count
+ */
 class Thread extends XFCP_Thread {
 
 	public function canViewThreadTitleHistory(&$error = null) {
