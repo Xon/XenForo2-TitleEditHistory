@@ -1,5 +1,5 @@
 {
     "content_type": "thread_title",
     "field_name": "edit_history_handler_class",
-    "field_value": "SV\\TitleEditHistory\\EditHistoryHandler\\Thread"
+    "field_value": "SV\\TitleEditHistory\\EditHistory\\Thread"
 }
