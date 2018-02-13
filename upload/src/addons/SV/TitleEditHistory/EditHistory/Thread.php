@@ -3,6 +3,7 @@
 namespace SV\TitleEditHistory\EditHistory;
 
 use XF\EditHistory\AbstractHandler;
+use XF\Entity\EditHistory;
 use XF\Mvc\Entity\Entity;
 
 class Thread extends AbstractHandler
@@ -60,12 +61,12 @@ class Thread extends AbstractHandler
 
 	/**
 	 * @param \SV\TitleEditHistory\XF\Entity\Thread|Entity $content
-	 * @param \XF\Entity\EditHistory $history
-	 * @param \XF\Entity\EditHistory|null $previous
+	 * @param EditHistory $history
+	 * @param EditHistory|null $previous
 	 *
 	 * @return mixed
 	 */
-	public function revertToVersion(Entity $content, \XF\Entity\EditHistory $history, \XF\Entity\EditHistory $previous = null) {
+	public function revertToVersion(Entity $content, EditHistory $history, EditHistory $previous = null) {
 		/** @var \SV\TitleEditHistory\XF\Service\Thread\Editor $editor */
 		$editor = \XF::app()->service('XF:Thread\Editor', $content);
 

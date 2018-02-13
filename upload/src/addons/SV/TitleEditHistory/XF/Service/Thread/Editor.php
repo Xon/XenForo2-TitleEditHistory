@@ -2,91 +2,110 @@
 
 namespace SV\TitleEditHistory\XF\Service\Thread;
 
+use SV\TitleEditHistory\XF\Entity\Thread;
 
 /**
  * Extends \XF\Service\Thread\Editor
  */
 class Editor extends XFCP_Editor
 {
+    /** @var bool  */
+    protected $logEdit    = true;
+    /** @var null|string */
+    protected $oldTitle   = null;
+    /** @var null|int */
+    protected $logDelay   = null;
+    /** @var bool */
+    protected $logHistory = true;
 
-	protected $logEdit = true;
-	protected $oldTitle;
-	protected $logDelay;
-	protected $logHistory = true;
+    /**
+     * @param $logEdit
+     */
+    public function logEdit($logEdit)
+    {
+        $this->logEdit = $logEdit;
+    }
 
+    /**
+     * @param $logDelay
+     */
+    public function logDelay($logDelay)
+    {
+        $this->logDelay = $logDelay;
+    }
 
-	public function logEdit($logEdit)
-	{
-		$this->logEdit = $logEdit;
-	}
+    /**
+     * @param bool $logHistory
+     */
+    public function logHistory($logHistory)
+    {
+        $this->logHistory = $logHistory;
+    }
 
-	public function logDelay($logDelay)
-	{
-		$this->logDelay = $logDelay;
-	}
+    /**
+     * @param string $title
+     */
+    public function setTitle($title)
+    {
+        $oldTitle = $this->thread->title;
 
-	public function logHistory($logHistory)
-	{
-		$this->logHistory = $logHistory;
-	}
+        $upstream = parent::setTitle($title);
 
-	public function setTitle($title) {
-		$oldTitle = $this->thread->title;
+        if ($this->thread->isChanged('title'))
+        {
+            $this->setupEditHistory($oldTitle);
+        }
 
-		$upstream = parent::setTitle($title);
+        return $upstream;
+    }
 
-		if($this->thread->isChanged('title')){
-			$this->setupEditHistory($oldTitle);
-		}
+    /**
+     * @param string $oldTitle
+     */
+    protected function setupEditHistory($oldTitle)
+    {
+        /** @var Thread $thread */
+        $thread = $this->thread;
 
-	    return $upstream;
-	}
+        $options = $this->app->options();
+        if ($options->editLogDisplay['enabled'] && $this->logEdit)
+        {
+            $delay = is_null($this->logDelay) ? $options->editLogDisplay['delay'] * 60 : $this->logDelay;
+            if ($thread->post_date + $delay <= \XF::$time)
+            {
+                $thread->thread_title_edit_count++;
+                $thread->thread_title_last_edit_date = \XF::$time;
+                $thread->thread_title_last_edit_user_id = \XF::visitor()->user_id;
+            }
+        }
 
-	protected function setupEditHistory($oldTitle)
-	{
-		$thread = $this->thread;
-
-		$options = $this->app->options();
-		if ($options->editLogDisplay['enabled'] && $this->logEdit)
-		{
-			$delay = is_null($this->logDelay) ? $options->editLogDisplay['delay'] * 60 : $this->logDelay;
-			if ($thread->post_date + $delay <= \XF::$time)
-			{
-				$thread->thread_title_edit_count++;
-				$thread->thread_title_last_edit_date = \XF::$time;
-				$thread->thread_title_last_edit_user_id = \XF::visitor()->user_id;
-			}
-		}
-
-		if ($options->editHistory['enabled'] && $this->logHistory)
-		{
-			$this->oldTitle = $oldTitle;
-		}
-	}
-
+        if ($options->editHistory['enabled'] && $this->logHistory)
+        {
+            $this->oldTitle = $oldTitle;
+        }
+    }
 
     /**
      * @return \XF\Entity\Thread
      */
     protected function _save()
     {
-	    $visitor = \XF::visitor();
+        $visitor = \XF::visitor();
 
-	    $db = $this->db();
-	    $db->beginTransaction();
+        $db = $this->db();
+        $db->beginTransaction();
 
         $thread = parent::_save();
 
-	    if ($this->oldTitle)
-	    {
-		    /** @var \XF\Repository\EditHistory $repo */
-		    $repo = $this->repository('XF:EditHistory');
-		    $repo->insertEditHistory('thread_title', $thread, $visitor, $this->oldTitle, $this->app->request()->getIp());
-	    }
+        if ($this->oldTitle)
+        {
+            /** @var \XF\Repository\EditHistory $repo */
+            $repo = $this->repository('XF:EditHistory');
+            $repo->insertEditHistory('thread_title', $thread, $visitor, $this->oldTitle, $this->app->request()->getIp());
+        }
 
-	    $db->commit();
+        $db->commit();
 
-	    return $thread;
+        return $thread;
     }
-
 }
