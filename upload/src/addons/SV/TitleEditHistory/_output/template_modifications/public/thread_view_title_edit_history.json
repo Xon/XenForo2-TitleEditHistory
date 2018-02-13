@@ -1,7 +1,7 @@
 {
     "template": "thread_view",
     "description": "",
-    "execution_order": 10,
+    "execution_order": 6158,
     "enabled": true,
     "action": "preg_replace",
     "find": "/(<xf:description meta=\"false\">.*?)(<\\/ul>\\s*<\\/xf:description>)/s",
