@@ -5,5 +5,5 @@
     "enabled": true,
     "action": "preg_replace",
     "find": "/(<xf:description meta=\"false\">.*?)(<\\/ul>\\s*<\\/xf:description>)/s",
-    "replace": "$1\n<xf:macro template=\"title_edit_history_macro\" \n\t\t  name=\"history\" \n\t\t  arg-content=\"$thread\" \n\t\t  arg-path=\"threads\" \n\t\t  />\n$2"
+    "replace": "$1\n<xf:macro template=\"title_edit_history_macro\" \n\t\t  name=\"history\" \n\t\t  arg-content=\"{$thread}\" \n\t\t  arg-path=\"threads\" \n\t\t  />\n$2"
 }
