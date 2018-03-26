@@ -83,7 +83,7 @@ class ResourceItem extends AbstractHandler
         }
         else if ($previous && $previous->edit_user_id === $content->user_id)
         {
-            $content->resource_title_last_date = $previous->edit_date;
+            $content->resource_title_last_edit_date = $previous->edit_date;
             $content->resource_title_last_edit_user_id = $previous->edit_user_id;
         }
     }
