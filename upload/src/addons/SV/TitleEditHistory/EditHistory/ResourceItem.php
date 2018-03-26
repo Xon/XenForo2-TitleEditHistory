@@ -8,43 +8,7 @@ use XF\Mvc\Entity\Entity;
 
 class ResourceItem extends AbstractHandler
 {
-    /**
-     * @param \SV\TitleEditHistory\XFRM\Entity\ResourceItem|Entity $content
-     * @return bool
-     */
-    public function canViewHistory(Entity $content)
-    {
-        return $content->canViewTitleHistory() && $content->canView();
-    }
-
-    /**
-     * @param \SV\TitleEditHistory\XFRM\Entity\ResourceItem|Entity $content
-     * @return mixed
-     */
-    public function canRevertContent(Entity $content)
-    {
-        return $content->canEdit();
-    }
-
-    /**
-     * @param \SV\TitleEditHistory\XFRM\Entity\ResourceItem|Entity $content
-     * @return string
-     */
-    public function getContentTitle(Entity $content)
-    {
-        $prefix = $content->getRelation('Prefix') ? "[" . $content->getRelation('Prefix')->getTitle() . "]" : "";
-
-        return $prefix . ' ' . $content->title;
-    }
-
-    /**
-     * @param \SV\TitleEditHistory\XFRM\Entity\ResourceItem|Entity $content
-     * @return mixed|null
-     */
-    public function getContentText(Entity $content)
-    {
-        return $content->title;
-    }
+    use EditTitleHistoryTrait;
 
     /**
      * @param \SV\TitleEditHistory\XFRM\Entity\ResourceItem|Entity $content
@@ -53,15 +17,6 @@ class ResourceItem extends AbstractHandler
     public function getContentLink(Entity $content)
     {
         return \XF::app()->router('public')->buildLink('resources', $content);
-    }
-
-    /**
-     * @param \SV\TitleEditHistory\XFRM\Entity\ResourceItem|Entity $content
-     * @return mixed
-     */
-    public function getBreadcrumbs(Entity $content)
-    {
-        return $content->getBreadcrumbs();
     }
 
     /**
@@ -86,16 +41,6 @@ class ResourceItem extends AbstractHandler
             $content->resource_title_last_edit_date = $previous->edit_date;
             $content->resource_title_last_edit_user_id = $previous->edit_user_id;
         }
-    }
-
-    /**
-     * @param                                                           $text
-     * @param \SV\TitleEditHistory\XFRM\Entity\ResourceItem|Entity|null $content
-     * @return string
-     */
-    public function getHtmlFormattedContent($text, Entity $content = null)
-    {
-        return htmlspecialchars($text);
     }
 
     /**

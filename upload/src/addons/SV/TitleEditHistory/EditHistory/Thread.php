@@ -8,57 +8,11 @@ use XF\Mvc\Entity\Entity;
 
 class Thread extends AbstractHandler
 {
-
-    /**
-     * @param \SV\TitleEditHistory\XF\Entity\Thread|Entity $content
-     * @return bool
-     */
-    public function canViewHistory(Entity $content)
-    {
-        return $content->canViewTitleHistory() && $content->canView();
-    }
-
-    /**
-     * @param \SV\TitleEditHistory\XF\Entity\Thread|Entity $content
-     * @return bool
-     */
-    public function canRevertContent(Entity $content)
-    {
-        return $content->canEdit();
-    }
-
-    /**
-     * @param \SV\TitleEditHistory\XF\Entity\Thread|Entity $content
-     * @return string
-     */
-    public function getContentTitle(Entity $content)
-    {
-        $prefix = $content->getRelation('Prefix') ? "[" . $content->getRelation('Prefix')->getTitle() . "]" : "";
-
-        return $prefix . ' ' . $content->title;
-    }
-
-    /**
-     * @param \SV\TitleEditHistory\XF\Entity\Thread|Entity $content
-     * @return string
-     */
-    public function getContentText(Entity $content)
-    {
-        return $content->title;
-    }
+    use EditTitleHistoryTrait;
 
     public function getContentLink(Entity $content)
     {
         return \XF::app()->router('public')->buildLink('threads', $content);
-    }
-
-    /**
-     * @param \SV\TitleEditHistory\XF\Entity\Thread|Entity $content
-     * @return array
-     */
-    public function getBreadcrumbs(Entity $content)
-    {
-        return $content->getBreadcrumbs();
     }
 
     /**
@@ -89,18 +43,13 @@ class Thread extends AbstractHandler
         return $editor->save();
     }
 
-    public function getHtmlFormattedContent($text, Entity $content = null)
-    {
-        return htmlspecialchars($text);
-    }
-
     /**
-     * @param \SV\TitleEditHistory\XF\Entity\Thread|Entity $content
+     * @param \SV\TitleEditHistory\XF\Entity\Thread $content
      * @return mixed|null
      */
     public function getEditCount(Entity $content)
     {
-        return $content->get('thread_title_edit_count');
+        return $content->thread_title_edit_count;
     }
 
     /**
