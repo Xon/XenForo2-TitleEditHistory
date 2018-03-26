@@ -4,6 +4,6 @@
     "execution_order": 10,
     "enabled": true,
     "action": "preg_replace",
-    "find": "#[\\t ]*<xf:if is=\"\\$resource\\.Featured#si",
-    "replace": "<xf:macro template=\"title_edit_history_macro\" \n\t\t  name=\"history\" \n\t\t  arg-content=\"{$resource}\" \n\t\t  arg-path=\"resources\" \n\t\t  />\n$0"
+    "find": "#(<div class=\"p-description\">.*?Featured.*?</xf:if>[\\t ]*)(.*?</xf:macro>)#si",
+    "replace": "$1\n<xf:macro template=\"title_edit_history_macro\" \n\t\t  name=\"history\" \n\t\t  arg-content=\"{$resource}\" \n\t\t  arg-path=\"resources\" \n\t\t  />\n$2"
 }
