@@ -4,13 +4,26 @@ namespace SV\TitleEditHistory\XFRM\Entity;
 
 use XF\Mvc\Entity\Structure;
 
+/**
+ * @property int resource_title_last_edit_date
+ * @property int resource_title_last_edit_user_id
+ * @property int resource_title_edit_count
+ */
 class ResourceItem extends XFCP_ResourceItem
 {
+    /**
+     * @return int
+     */
+    public function getTitleEditCount()
+    {
+        return $this->resource_title_edit_count;
+    }
+
     /**
      * @param string|null $error
      * @return bool
      */
-    public function canViewResourceTitleHistory(&$error = null)
+    public function canViewTitleHistory(/** @noinspection PhpUnusedParameterInspection */ &$error = null)
     {
         $visitor = \XF::visitor();
 

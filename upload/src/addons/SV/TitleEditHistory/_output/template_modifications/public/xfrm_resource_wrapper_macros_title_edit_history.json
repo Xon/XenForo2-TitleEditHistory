@@ -3,7 +3,7 @@
     "description": "",
     "execution_order": 10,
     "enabled": true,
-    "action": "str_replace",
-    "find": "<xf:if is=\"$resource.Featured\">",
-    "replace": "<xf:include template=\"resource_view_tools_title_edit_history\"/>\n\t\t\t\t\t\t\t\t$0"
+    "action": "preg_replace",
+    "find": "#[\\t ]*<xf:if is=\"\\$resource\\.Featured#si",
+    "replace": "<xf:macro template=\"title_edit_history_macro\" \n\t\t  name=\"history\" \n\t\t  arg-content=\"$resource\" \n\t\t  arg-path=\"resources\" \n\t\t  />\n$0"
 }

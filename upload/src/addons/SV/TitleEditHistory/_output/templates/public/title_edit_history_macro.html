@@ -1,7 +1,13 @@
-<xf:if is="{$resource.resource_title_edit_count} && {{ $resource.canViewResourceTitleHistory() }}">
+<xf:macro name="history"
+		  arg-content="!"
+		  arg-link="!"
+		  arg-pathSuffix="/title-history">
+	
+<xf:if is="$content.getTitleEditCount() && $content.canViewTitleHistory()">
+	<xf:set var="$link" value="{{ link( $path . $pathSuffix, $content) }}" />
 	<li>
 		<span class="u-muted">
-			<a href="{{ link('resources/title-history', $resource) }}"
+			<a href="{$link}"
 			   class=""
 			   dir="auto"
 			   data-xf-click="toggle"
@@ -12,7 +18,8 @@
 			</a>
 		</span>
 		<div class="js-titleHistoryTarget toggleTarget"
-			 data-href="{{ link('resources/TitleHistory', $resource) }}"
+			 data-href="{$link}"
 			 data-load-selector=".js-titleHistoryTarget"></div>
 	</li>
 </xf:if>
+</xf:macro>

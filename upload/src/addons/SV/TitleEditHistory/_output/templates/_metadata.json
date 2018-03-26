@@ -1,12 +1,7 @@
 {
-    "public/resource_view_tools_title_edit_history.html": {
-        "version_id": 2000170,
-        "version_string": "2.0.1",
-        "hash": "a746f4ed9f9da012f7dd31ab3fcbafdb"
-    },
-    "public/thread_view_tools_title_edit_history.html": {
-        "version_id": 2000070,
-        "version_string": "2.0.0",
-        "hash": "31484de3129523e674b6b1aad8b57f92"
+    "public/title_edit_history_macro.html": {
+        "version_id": 2010000,
+        "version_string": "2.1.0",
+        "hash": "654a174cef62473d19b8c63e72cf1581"
     }
 }

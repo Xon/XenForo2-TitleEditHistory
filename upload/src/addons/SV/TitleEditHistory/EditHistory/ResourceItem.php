@@ -14,7 +14,7 @@ class ResourceItem extends AbstractHandler
      */
     public function canViewHistory(Entity $content)
     {
-        return $content->canViewResourceTitleHistory() && $content->canView();
+        return $content->canViewTitleHistory() && $content->canView();
     }
 
     /**

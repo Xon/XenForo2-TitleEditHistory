@@ -13,10 +13,18 @@ use XF\Mvc\Entity\Structure;
 class Thread extends XFCP_Thread
 {
     /**
+     * @return int
+     */
+    public function getTitleEditCount()
+    {
+        return $this->thread_title_edit_count;
+    }
+
+    /**
      * @param string|null $error
      * @return bool
      */
-    public function canViewThreadTitleHistory(&$error = null)
+    public function canViewTitleHistory(/** @noinspection PhpUnusedParameterInspection */ &$error = null)
     {
         if (!\XF::visitor()->user_id)
         {

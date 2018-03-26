@@ -15,7 +15,7 @@ class Thread extends AbstractHandler
 	 * @return bool
 	 */
 	public function canViewHistory(Entity $content) {
-		return $content->canViewThreadTitleHistory() && $content->canView();
+		return $content->canViewTitleHistory() && $content->canView();
 	}
 
 	/**
