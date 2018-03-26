@@ -23,6 +23,18 @@ class Setup extends AbstractSetup
 		});
 	}
 
+	public function installStep2()
+    {
+        if ($this->resourceManagerInstalled())
+        {
+            $this->schemaManager()->alterTable('xf_rm_resource', function(Alter $table) {
+                $table->addColumn('resource_title_edit_count')->type('int')->nullable(false)->setDefault(0);
+                $table->addColumn('resource_title_last_edit_date')->type('int')->nullable(false)->setDefault(0);
+                $table->addColumn('resource_title_last_edit_user_id')->type('int')->nullable(false)->setDefault(0);
+            });
+        }
+    }
+
 	public function upgrade10050Step1()
 	{
         // rename if possible
@@ -37,6 +49,18 @@ class Setup extends AbstractSetup
             $table->dropColumns(['edit_count', 'last_edit_date', 'last_edit_user_id']);
         });
 	}
+
+	public function upgrade2000070Step1()
+    {
+        if ($this->resourceManagerInstalled())
+        {
+            $this->schemaManager()->alterTable('xf_rm_resource', function(Alter $table) {
+                $table->addColumn('resource_title_edit_count')->type('int')->nullable(false)->setDefault(0);
+                $table->addColumn('resource_title_last_edit_date')->type('int')->nullable(false)->setDefault(0);
+                $table->addColumn('resource_title_last_edit_user_id')->type('int')->nullable(false)->setDefault(0);
+            });
+        }
+    }
 
 	public function uninstallStep1()
     {
@@ -54,4 +78,25 @@ class Setup extends AbstractSetup
 			$table->dropColumns(['thread_title_edit_count', 'thread_title_last_edit_date', 'thread_title_last_edit_user_id']);
 		});
 	}
+
+	public function uninstallStep3()
+    {
+        $db = $this->db();
+        $db->delete('xf_edit_history', 'content_type = ' . $db->quote('resource_title'));
+    }
+
+    public function uninstallStep4()
+    {
+        if ($this->resourceManagerInstalled())
+        {
+            $this->schemaManager()->alterTable('xf_rm_resource', function(Alter $table) {
+                $table->dropColumns(['resource_title_edit_count', 'resource_title_last_edit_date', 'resource_title_last_edit_user_id']);
+            });
+        }
+    }
+
+    protected function resourceManagerInstalled()
+    {
+        return $this->schemaManager()->tableExists('xf_rm_resource');
+    }
 }

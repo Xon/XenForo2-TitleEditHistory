@@ -1,5 +1,8 @@
 {
     "public/thread_view_title_edit_history.json": {
-        "hash": "eaab77f3169dcd8c75fbd521af7401ae"
+        "hash": "eff7d450975197e3c643910885f19a0b"
+    },
+    "public/xfrm_resource_wrapper_macros_title_edit_history.json": {
+        "hash": "15522e3a033bb855679f6dba529de789"
     }
 }

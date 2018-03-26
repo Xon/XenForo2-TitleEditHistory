@@ -1,0 +1,6 @@
+{
+    "from_class": "XFRM\\Pub\\Controller\\ResourceItem",
+    "to_class": "SV\\TitleEditHistory\\XFRM\\Pub\\Controller\\ResourceItem",
+    "execute_order": 6157,
+    "active": true
+}

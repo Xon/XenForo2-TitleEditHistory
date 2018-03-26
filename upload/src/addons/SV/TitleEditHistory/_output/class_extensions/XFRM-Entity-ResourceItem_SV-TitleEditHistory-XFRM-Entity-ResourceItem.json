@@ -1,0 +1,6 @@
+{
+    "from_class": "XFRM\\Entity\\ResourceItem",
+    "to_class": "SV\\TitleEditHistory\\XFRM\\Entity\\ResourceItem",
+    "execute_order": 6157,
+    "active": true
+}

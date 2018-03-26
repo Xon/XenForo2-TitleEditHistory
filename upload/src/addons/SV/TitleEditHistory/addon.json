@@ -1,16 +1,19 @@
 {
     "legacy_addon_id": "SV_TitleEditHistory",
-    "title": "Thread Title Edit History",
+    "title": "Content Title Edit History",
     "description": "",
-    "version_id": 2000070,
-    "version_string": "2.0.0",
+    "version_id": 2000170,
+    "version_string": "2.0.1",
     "dev": "Xon",
     "dev_url": "https://atelieraphelion.com",
     "faq_url": "",
     "support_url": "https://xenforo.com/community/resources/thread-title-edit-history.6158/",
     "extra_urls": [],
-    "require" : {
-        "php": ["5.6.0", "PHP 5.6.0+"]
+    "require": {
+        "php": [
+            "5.6.0",
+            "PHP 5.6.0+"
+        ]
     },
     "icon": "fa-list-ul"
 }

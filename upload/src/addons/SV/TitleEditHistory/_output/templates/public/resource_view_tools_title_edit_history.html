@@ -1,0 +1,18 @@
+<xf:if is="{$resource.resource_title_edit_count} && {{ $resource.canViewResourceTitleHistory() }}">
+	<li>
+		<span class="u-muted">
+			<a href="{{ link('resources/title-history', $resource) }}"
+			   class=""
+			   dir="auto"
+			   data-xf-click="toggle"
+			   data-target=".js-titleHistoryTarget"
+			   data-menu-closer="true"
+			>
+				{{ phrase('title_history') }}
+			</a>
+		</span>
+		<div class="js-titleHistoryTarget toggleTarget"
+			 data-href="{{ link('resources/TitleHistory', $resource) }}"
+			 data-load-selector=".js-titleHistoryTarget"></div>
+	</li>
+</xf:if>
