@@ -9,12 +9,12 @@ use SV\TitleEditHistory\XF\Entity\Thread;
  */
 class Editor extends XFCP_Editor
 {
-    /** @var bool  */
-    protected $logEdit    = true;
+    /** @var bool */
+    protected $logEdit = true;
     /** @var null|string */
-    protected $oldTitle   = null;
+    protected $oldTitle = null;
     /** @var null|int */
-    protected $logDelay   = null;
+    protected $logDelay = null;
     /** @var bool */
     protected $logHistory = true;
 

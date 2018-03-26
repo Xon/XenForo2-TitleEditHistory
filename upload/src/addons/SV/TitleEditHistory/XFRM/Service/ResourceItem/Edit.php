@@ -6,12 +6,12 @@ use SV\TitleEditHistory\XFRM\Entity\ResourceItem;
 
 class Edit extends XFCP_Edit
 {
-    /** @var bool  */
-    protected $logEdit    = true;
+    /** @var bool */
+    protected $logEdit = true;
     /** @var null|string */
-    protected $oldTitle   = null;
+    protected $oldTitle = null;
     /** @var null|int */
-    protected $logDelay   = null;
+    protected $logDelay = null;
     /** @var bool */
     protected $logHistory = true;
 

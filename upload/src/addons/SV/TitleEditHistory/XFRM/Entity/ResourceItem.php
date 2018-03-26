@@ -23,7 +23,8 @@ class ResourceItem extends XFCP_ResourceItem
      * @param string|null $error
      * @return bool
      */
-    public function canViewTitleHistory(/** @noinspection PhpUnusedParameterInspection */ &$error = null)
+    public function canViewTitleHistory(/** @noinspection PhpUnusedParameterInspection */
+        &$error = null)
     {
         $visitor = \XF::visitor();
 
@@ -42,7 +43,6 @@ class ResourceItem extends XFCP_ResourceItem
 
     /**
      * @param Structure $structure
-     *
      * @return Structure
      */
     public static function getStructure(Structure $structure)
