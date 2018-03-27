@@ -8,7 +8,7 @@ trait EditTitleHistoryTrait
 {
     /**
      * @param Entity $content
-     * 
+     *
      * @return bool
      */
     public function canViewHistory(Entity $content)
@@ -37,7 +37,7 @@ trait EditTitleHistoryTrait
     {
         $prefix = '';
 
-        try
+        if (isset($content->sv_prefix_ids))
         {
             /** @noinspection PhpUndefinedFieldInspection */
             $prefixIds = $content->sv_prefix_ids;
@@ -48,14 +48,9 @@ trait EditTitleHistoryTrait
             }
             $prefix = implode(" ", $prefixes) . ' ';
         }
-        catch (\InvalidArgumentException $e)
+        else if (isset($content->Prefix))
         {
-            try
-            {
-                $prefix = $content->getRelation('Prefix') ? "[" . $content->getRelation('Prefix')->getTitle() . "] " : "";
-            }
-            catch (\InvalidArgumentException $e)
-            {}
+            $prefix = $content->getRelation('Prefix') ? "[" . $content->getRelation('Prefix')->getTitle() . "] " : "";
         }
 
         /** @noinspection PhpUndefinedFieldInspection */
