@@ -3,44 +3,14 @@
 namespace SV\TitleEditHistory\XF\Service\Thread;
 
 use SV\TitleEditHistory\XF\Entity\Thread;
+use SV\TitleEditHistory\Service\Base\EditorTrait;
 
 /**
  * Extends \XF\Service\Thread\Editor
  */
 class Editor extends XFCP_Editor
 {
-    /** @var bool */
-    protected $logEdit = true;
-    /** @var null|string */
-    protected $oldTitle = null;
-    /** @var null|int */
-    protected $logDelay = null;
-    /** @var bool */
-    protected $logHistory = true;
-
-    /**
-     * @param $logEdit
-     */
-    public function logEdit($logEdit)
-    {
-        $this->logEdit = $logEdit;
-    }
-
-    /**
-     * @param $logDelay
-     */
-    public function logDelay($logDelay)
-    {
-        $this->logDelay = $logDelay;
-    }
-
-    /**
-     * @param bool $logHistory
-     */
-    public function logHistory($logHistory)
-    {
-        $this->logHistory = $logHistory;
-    }
+    use EditorTrait;
 
     /**
      * @param string $title
