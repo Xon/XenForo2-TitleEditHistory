@@ -2,6 +2,7 @@
 
 namespace SV\TitleEditHistory\XFRM\Entity;
 
+use SV\TitleEditHistory\Entity\IHistoryTrackedTitle;
 use XF\Mvc\Entity\Structure;
 
 /**
@@ -9,8 +10,22 @@ use XF\Mvc\Entity\Structure;
  * @property int resource_title_last_edit_user_id
  * @property int resource_title_edit_count
  */
-class ResourceItem extends XFCP_ResourceItem
+class ResourceItem extends XFCP_ResourceItem implements IHistoryTrackedTitle
 {
+    public function getTitleEditKeys()
+    {
+        return [
+            'edit_date' => 'resource_date',
+            'last_edit_date' => 'resource_title_last_edit_date',
+            'last_edit_user_id' => 'resource_title_last_edit_user_id',
+            'edit_count' => 'resource_title_edit_count',
+            'content_type' => 'resource_title',
+            'content_id' => 'resource_id',
+            'title' => 'title',
+            'editor' => 'XFRM:ResourceItem\Edit',
+        ];
+    }
+
     /**
      * @return int
      */

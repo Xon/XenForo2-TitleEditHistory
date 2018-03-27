@@ -2,27 +2,18 @@
 
 namespace SV\TitleEditHistory\XF\Pub\Controller;
 
+use SV\TitleEditHistory\Entity\IHistoryTrackedTitle;
 use SV\TitleEditHistory\Pub\Controller\TitleHistoryTrait;
 
 class Thread extends XFCP_Thread
 {
     use TitleHistoryTrait;
 
-    /**
-     * @return string|null
-     * @throws \LogicException
-     */
-    protected function getTitleHistoryContentType()
+    protected function getTitleHistoryKeys()
     {
-        return 'thread_title';
-    }
+        /** @var IHistoryTrackedTitle $content */
+        $content = $this->em()->create('XF:Thread');
 
-    /**
-     * @return string|null
-     * @throws \LogicException
-     */
-    protected function getTitleHistoryContentIdKey()
-    {
-        return 'thread_id';
+        return $content->getTitleEditKeys();
     }
 }

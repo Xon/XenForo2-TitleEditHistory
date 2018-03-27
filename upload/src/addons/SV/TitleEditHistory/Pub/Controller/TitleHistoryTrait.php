@@ -6,22 +6,14 @@ use XF\Mvc\ParameterBag;
 
 trait TitleHistoryTrait
 {
+    /** @noinspection PhpDocSignatureInspection */
     /**
-     * @return string|null
+     * @return array
      * @throws \LogicException
      */
-    protected function getTitleHistoryContentType()
+    protected function getTitleHistoryKeys()
     {
-        throw new \LogicException(get_called_class() . '::getTitleHistoryContentType() must be overridden');
-    }
-
-    /**
-     * @return string|null
-     * @throws \LogicException
-     */
-    protected function getTitleHistoryContentIdKey()
-    {
-        throw new \LogicException(get_called_class() . '::getTitleHistoryContentIdKey() must be overridden');
+        throw new \LogicException(get_called_class() . '::getTitleHistoryKeys() must be overridden');
     }
 
     /**
@@ -30,11 +22,12 @@ trait TitleHistoryTrait
      */
     public function actionTitleHistory(ParameterBag $params)
     {
+        $keys = $this->getTitleHistoryKeys();
         return $this->rerouteController(
             'XF:EditHistory', 'index',
             [
-                'content_type' => $this->getTitleHistoryContentType(),
-                'content_id'   => $params->get($this->getTitleHistoryContentIdKey())
+                'content_type' => $keys['content_type'],
+                'content_id'   => $params->get($keys['content_id'])
             ]
         );
     }
