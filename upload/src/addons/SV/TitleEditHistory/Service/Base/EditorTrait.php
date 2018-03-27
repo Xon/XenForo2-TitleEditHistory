@@ -2,9 +2,6 @@
 
 namespace SV\TitleEditHistory\Service\Base;
 
-use XF\Mvc\Entity\Entity;
-use XF\Entity\User;
-
 trait EditorTrait
 {
     /** @var bool */

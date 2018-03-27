@@ -24,7 +24,7 @@ class ResourceItem extends AbstractHandler
      * @param EditHistory                                          $history
      * @param EditHistory|null                                     $previous
      */
-    public function revertToVersion(Entity $content, \XF\Entity\EditHistory $history, \XF\Entity\EditHistory $previous = null)
+    public function revertToVersion(Entity $content, EditHistory $history, EditHistory $previous = null)
     {
         /** @var \SV\TitleEditHistory\XFRM\Service\ResourceItem\Edit $editor */
         $editor = \XF::app()->service('XFRM:ResourceItem\Edit', $content);
@@ -45,11 +45,11 @@ class ResourceItem extends AbstractHandler
 
     /**
      * @param \SV\TitleEditHistory\XFRM\Entity\ResourceItem|Entity $content
-     * @return mixed|null
+     * @return int
      */
     public function getEditCount(Entity $content)
     {
-        return $content->get('resource_title_edit_count');
+        return $content->resource_title_edit_count;
     }
 
     /**

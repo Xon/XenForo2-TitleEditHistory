@@ -44,8 +44,8 @@ class Thread extends AbstractHandler
     }
 
     /**
-     * @param \SV\TitleEditHistory\XF\Entity\Thread $content
-     * @return mixed|null
+     * @param \SV\TitleEditHistory\XF\Entity\Thread|Entity $content
+     * @return int
      */
     public function getEditCount(Entity $content)
     {
