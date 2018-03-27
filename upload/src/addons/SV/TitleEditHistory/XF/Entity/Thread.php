@@ -74,4 +74,13 @@ class Thread extends XFCP_Thread implements IHistoryTrackedTitle
 
         return $structure;
     }
+
+    /**
+     * @param string|null $error
+     * @return bool
+     */
+    public function canEditTitle(&$error = null)
+    {
+        return $this->canEdit($error);
+    }
 }

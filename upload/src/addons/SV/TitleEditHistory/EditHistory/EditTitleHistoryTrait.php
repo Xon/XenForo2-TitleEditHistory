@@ -24,7 +24,7 @@ trait EditTitleHistoryTrait
      */
     public function canRevertContent(Entity $content)
     {
-        return $content->canEdit();
+        return $content->canEditTitle();
     }
 
     /**

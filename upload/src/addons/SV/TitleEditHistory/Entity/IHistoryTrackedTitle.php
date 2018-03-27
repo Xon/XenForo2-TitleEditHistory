@@ -34,5 +34,5 @@ interface IHistoryTrackedTitle
      * @param string|null $error
      * @return bool
      */
-    public function canEdit(&$error = null);
+    public function canEditTitle(&$error = null);
 }
