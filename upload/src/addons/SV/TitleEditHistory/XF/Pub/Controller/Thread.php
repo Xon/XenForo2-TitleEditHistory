@@ -2,22 +2,27 @@
 
 namespace SV\TitleEditHistory\XF\Pub\Controller;
 
-use XF\Mvc\ParameterBag;
+use SV\TitleEditHistory\Pub\Controller\TitleHistoryTrait;
 
 class Thread extends XFCP_Thread
 {
+    use TitleHistoryTrait;
+
     /**
-     * @param ParameterBag $params
-     * @return \XF\Mvc\Reply\Reroute
+     * @return string|null
+     * @throws \LogicException
      */
-    public function actionTitleHistory(ParameterBag $params)
+    protected function getTitleHistoryContentType()
     {
-        return $this->rerouteController(
-            'XF:EditHistory', 'index',
-            [
-                'content_type' => 'thread_title',
-                'content_id'   => $params->get('thread_id')
-            ]
-        );
+        return 'thread_title';
+    }
+
+    /**
+     * @return string|null
+     * @throws \LogicException
+     */
+    protected function getTitleHistoryContentIdKey()
+    {
+        return 'thread_id';
     }
 }

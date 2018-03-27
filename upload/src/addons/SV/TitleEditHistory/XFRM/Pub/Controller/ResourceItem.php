@@ -2,22 +2,27 @@
 
 namespace SV\TitleEditHistory\XFRM\Pub\Controller;
 
-use XF\Mvc\ParameterBag;
+use SV\TitleEditHistory\Pub\Controller\TitleHistoryTrait;
 
 class ResourceItem extends XFCP_ResourceItem
 {
+    use TitleHistoryTrait;
+
     /**
-     * @param ParameterBag $params
-     * @return \XF\Mvc\Reply\Reroute
+     * @return string|null
+     * @throws \LogicException
      */
-    public function actionTitleHistory(ParameterBag $params)
+    protected function getTitleHistoryContentType()
     {
-        return $this->rerouteController(
-            'XF:EditHistory', 'index',
-            [
-                'content_type' => 'resource_title',
-                'content_id'   => $params->get('resource_id')
-            ]
-        );
+        return 'resource_title';
+    }
+
+    /**
+     * @return string|null
+     * @throws \LogicException
+     */
+    protected function getTitleHistoryContentIdKey()
+    {
+        return 'resource_id';
     }
 }
