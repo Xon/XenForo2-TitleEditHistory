@@ -34,10 +34,23 @@ trait EditTitleHistoryTrait
 
         try
         {
-            $prefix = $content->getRelation('Prefix') ? "[" . $content->getRelation('Prefix')->getTitle() . "] " : "";
+            $prefixIds = $content->sv_prefix_ids;
+            $prefixes = [];
+            foreach ($prefixIds AS $prefixId)
+            {
+                $prefixes[] = '[' . \XF::phrase($content->getEntityContentType() . '_prefix.' . $prefixId, [], false)->render() . ']';
+            }
+            $prefix = implode(" ", $prefixes) . ' ';
         }
         catch (\InvalidArgumentException $e)
-        {}
+        {
+            try
+            {
+                $prefix = $content->getRelation('Prefix') ? "[" . $content->getRelation('Prefix')->getTitle() . "] " : "";
+            }
+            catch (\InvalidArgumentException $e)
+            {}
+        }
 
         return $prefix . $content->title;
     }
