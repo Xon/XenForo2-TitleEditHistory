@@ -77,6 +77,12 @@ class ResourceItem extends XFCP_ResourceItem implements IHistoryTrackedTitle
      */
     public function canEditTitle(&$error = null)
     {
+        if (is_callable('parent::canEditTitle'))
+        {
+            /** @noinspection PhpUndefinedMethodInspection */
+            return parent::canEditTitle($error);
+        }
+
         return $this->canEdit($error);
     }
 }

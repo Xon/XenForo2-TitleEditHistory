@@ -81,6 +81,12 @@ class Thread extends XFCP_Thread implements IHistoryTrackedTitle
      */
     public function canEditTitle(&$error = null)
     {
+        if (is_callable('parent::canEditTitle'))
+        {
+            /** @noinspection PhpUndefinedMethodInspection */
+            return parent::canEditTitle($error);
+        }
+
         return $this->canEdit($error);
     }
 }
