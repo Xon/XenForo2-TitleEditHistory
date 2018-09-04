@@ -2,15 +2,17 @@
 
 namespace SV\TitleEditHistory;
 
+use SV\Utils\InstallerHelper;
 use XF\AddOn\AbstractSetup;
 use XF\AddOn\StepRunnerInstallTrait;
 use XF\AddOn\StepRunnerUninstallTrait;
 use XF\AddOn\StepRunnerUpgradeTrait;
 use XF\Db\Schema\Alter;
-use XF\Db\Schema\Create;
 
 class Setup extends AbstractSetup
 {
+    // from https://github.com/Xon/XenForo2-Utils cloned to src/addons/SV/Utils
+    use InstallerHelper;
     use StepRunnerInstallTrait;
     use StepRunnerUpgradeTrait;
     use StepRunnerUninstallTrait;
@@ -22,6 +24,7 @@ class Setup extends AbstractSetup
         foreach ($this->getTables() as $tableName => $callback)
         {
             $sm->createTable($tableName, $callback);
+            $sm->alterTable($tableName, $callback);
         }
 
         foreach ($this->getAlterTables() as $tableName => $callback)
@@ -86,37 +89,6 @@ class Setup extends AbstractSetup
     protected function resourceManagerInstalled()
     {
         return $this->schemaManager()->tableExists('xf_rm_resource');
-    }
-
-
-    /**
-     * @param Create|Alter $table
-     * @param string       $name
-     * @param string|null  $type
-     * @param string|null  $length
-     * @return \XF\Db\Schema\Column
-     */
-    protected function addOrChangeColumn($table, $name, $type = null, $length = null)
-    {
-        if ($table instanceof Create)
-        {
-            $table->checkExists(true);
-
-            return $table->addColumn($name, $type, $length);
-        }
-        else if ($table instanceof Alter)
-        {
-            if ($table->getColumnDefinition($name))
-            {
-                return $table->changeColumn($name, $type, $length);
-            }
-
-            return $table->addColumn($name, $type, $length);
-        }
-        else
-        {
-            throw new \LogicException("Unknown schema DDL type " . get_class($table));
-        }
     }
 
     /**
