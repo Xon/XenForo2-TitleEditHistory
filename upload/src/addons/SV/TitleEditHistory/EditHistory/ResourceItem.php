@@ -3,7 +3,6 @@
 namespace SV\TitleEditHistory\EditHistory;
 
 use XF\EditHistory\AbstractHandler;
-use XF\Entity\EditHistory;
 use XF\Mvc\Entity\Entity;
 
 class ResourceItem extends AbstractHandler

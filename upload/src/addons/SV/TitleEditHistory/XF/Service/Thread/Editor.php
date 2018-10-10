@@ -5,7 +5,6 @@ namespace SV\TitleEditHistory\XF\Service\Thread;
 use SV\TitleEditHistory\Entity\IHistoryTrackedTitle;
 use SV\TitleEditHistory\Service\Base\EditorInterface;
 use SV\TitleEditHistory\Service\Base\EditorTrait;
-use SV\TitleEditHistory\XF\Entity\Thread;
 
 /**
  * Extends \XF\Service\Thread\Editor

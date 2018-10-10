@@ -53,6 +53,7 @@ trait EditorTrait
 
         if (is_callable('parent::setTitle'))
         {
+            /** @noinspection PhpUndefinedClassInspection */
             parent::setTitle($title);
         }
         else

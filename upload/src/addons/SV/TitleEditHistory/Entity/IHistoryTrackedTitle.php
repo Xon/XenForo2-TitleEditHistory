@@ -9,6 +9,11 @@
 
 namespace SV\TitleEditHistory\Entity;
 
+/**
+ * Interface IHistoryTrackedTitle
+ *
+ * @property int user_id
+ */
 interface IHistoryTrackedTitle
 {
     public function getTitleEditKeys();
