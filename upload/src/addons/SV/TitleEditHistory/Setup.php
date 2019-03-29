@@ -48,7 +48,7 @@ class Setup extends AbstractSetup
         });
     }
 
-    public function upgrade2010000Step1()
+    public function upgrade2010500Step1()
     {
         $this->installStep1();
     }
@@ -86,11 +86,6 @@ class Setup extends AbstractSetup
         );
     }
 
-    protected function resourceManagerInstalled()
-    {
-        return $this->schemaManager()->tableExists('xf_rm_resource');
-    }
-
     /**
      * @return array
      */
@@ -100,6 +95,10 @@ class Setup extends AbstractSetup
 
         return $tables;
     }
+
+    public static $supportedAddOns = [
+        'XFRM' => true,
+    ];
 
     /**
      * @return array
@@ -114,7 +113,7 @@ class Setup extends AbstractSetup
             $this->addOrChangeColumn($table, 'thread_title_last_edit_user_id')->type('int')->nullable(false)->setDefault(0);
         };
 
-        if ($this->resourceManagerInstalled())
+        if ($this->addonExists('XFRM'))
         {
             $tables['xf_rm_resource'] = function (Alter $table) {
                 $this->addOrChangeColumn($table, 'resource_title_edit_count')->type('int')->nullable(false)->setDefault(0);
@@ -134,7 +133,7 @@ class Setup extends AbstractSetup
             $table->dropColumns(['thread_title_edit_count', 'thread_title_last_edit_date', 'thread_title_last_edit_user_id']);
         };
 
-        if ($this->resourceManagerInstalled())
+        if ($this->addonExists('XFRM'))
         {
             $tables['xf_rm_resource'] = function (Alter $table) {
                 $table->dropColumns(['resource_title_edit_count', 'resource_title_last_edit_date', 'resource_title_last_edit_user_id']);
