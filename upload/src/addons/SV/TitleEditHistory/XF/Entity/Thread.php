@@ -6,7 +6,6 @@ use SV\TitleEditHistory\Entity\IHistoryTrackedTitle;
 use XF\Mvc\Entity\Structure;
 
 /**
- *
  * @property int thread_title_last_edit_date
  * @property int thread_title_last_edit_user_id
  * @property int thread_title_edit_count
@@ -16,14 +15,14 @@ class Thread extends XFCP_Thread implements IHistoryTrackedTitle
     public function getTitleEditKeys()
     {
         return [
-            'edit_date' => 'post_date',
-            'last_edit_date' => 'thread_title_last_edit_date',
+            'edit_date'         => 'post_date',
+            'last_edit_date'    => 'thread_title_last_edit_date',
             'last_edit_user_id' => 'thread_title_last_edit_user_id',
-            'edit_count' => 'thread_title_edit_count',
-            'content_type' => 'thread_title',
-            'content_id' => 'thread_id',
-            'title' => 'title',
-            'editor' => 'XF:Thread\Editor',
+            'edit_count'        => 'thread_title_edit_count',
+            'content_type'      => 'thread_title',
+            'content_id'        => 'thread_id',
+            'title'             => 'title',
+            'editor'            => 'XF:Thread\Editor',
         ];
     }
 
