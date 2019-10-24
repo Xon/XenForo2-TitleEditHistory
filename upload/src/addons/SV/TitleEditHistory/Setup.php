@@ -53,6 +53,11 @@ class Setup extends AbstractSetup
         $this->installStep1();
     }
 
+    public function upgrade2010600Step1()
+    {
+        $this->installStep1();
+    }
+
     public function uninstallStep1()
     {
         $sm = $this->schemaManager();
@@ -80,7 +85,9 @@ class Setup extends AbstractSetup
             DELETE FROM xf_edit_history
             WHERE content_type IN (
               'thread_title',
-              'resource_title'
+              'resource_title',
+              'xfmg_media_title',
+              'xfmg_album_title'
               )
         "
         );
@@ -98,6 +105,7 @@ class Setup extends AbstractSetup
 
     public static $supportedAddOns = [
         'XFRM' => true,
+        'XFMG' => true
     ];
 
     /**
@@ -122,6 +130,21 @@ class Setup extends AbstractSetup
             };
         }
 
+        if ($this->addonExists('XFMG'))
+        {
+            $tables['xf_mg_media_item'] = function (Alter $table) {
+                $this->addOrChangeColumn($table, 'media_title_edit_count')->type('int')->nullable(false)->setDefault(0);
+                $this->addOrChangeColumn($table, 'media_title_last_edit_date')->type('int')->nullable(false)->setDefault(0);
+                $this->addOrChangeColumn($table, 'media_title_last_edit_user_id')->type('int')->nullable(false)->setDefault(0);
+            };
+
+            $tables['xf_mg_album'] = function (Alter $table) {
+                $this->addOrChangeColumn($table, 'album_title_edit_count')->type('int')->nullable(false)->setDefault(0);
+                $this->addOrChangeColumn($table, 'album_title_last_edit_date')->type('int')->nullable(false)->setDefault(0);
+                $this->addOrChangeColumn($table, 'album_title_last_edit_user_id')->type('int')->nullable(false)->setDefault(0);
+            };
+        }
+
         return $tables;
     }
 
@@ -137,6 +160,17 @@ class Setup extends AbstractSetup
         {
             $tables['xf_rm_resource'] = function (Alter $table) {
                 $table->dropColumns(['resource_title_edit_count', 'resource_title_last_edit_date', 'resource_title_last_edit_user_id']);
+            };
+        }
+
+        if ($this->addonExists('XFMG'))
+        {
+            $tables['xf_mg_media_item'] = function (Alter $table) {
+                $table->dropColumns(['media_title_edit_count', 'media_title_last_edit_date', 'media_title_last_edit_user_id']);
+            };
+
+            $tables['xf_mg_album'] = function (Alter $table) {
+                $table->dropColumns(['album_title_edit_count', 'album_title_last_edit_date', 'album_title_last_edit_user_id']);
             };
         }
 

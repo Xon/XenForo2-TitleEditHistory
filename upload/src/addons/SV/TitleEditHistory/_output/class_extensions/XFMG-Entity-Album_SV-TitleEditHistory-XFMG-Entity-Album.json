@@ -1,0 +1,6 @@
+{
+    "from_class": "XFMG\\Entity\\Album",
+    "to_class": "SV\\TitleEditHistory\\XFMG\\Entity\\Album",
+    "execute_order": 6158,
+    "active": true
+}

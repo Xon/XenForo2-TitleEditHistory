@@ -1,0 +1,9 @@
+{
+    "template": "xfmg_media_view",
+    "description": "Show title edit history for media",
+    "execution_order": 6158,
+    "enabled": true,
+    "action": "preg_replace",
+    "find": "#(<div class=\"actionBar.*?\".*?>.*?)(<xf:if is=\"\\$hasActionBarMenu\")(.*?<\\/xf:contentcheck>.*?<\\/div>.*?<\\/xf:if>.*?<\\/div>)#si",
+    "replace": "$1\n\n<xf:set var=\"$titleHistoryLink\" value=\"{{ null }}\" />\n\n<xf:if is=\"is_addon_active('SV/TitleEditHistory') && $mediaItem.getTitleEditCount() && $mediaItem.canViewTitleHistory()\">\n\t<xf:set var=\"$titleHistoryLink\" value=\"{{ link('media/title-history', $mediaItem) }}\" />\n</xf:if>\n\n<xf:if is=\"$titleHistoryLink\">\n\t<a href=\"{$titleHistoryLink}\"\n\t   class=\"actionBar-action actionBar-action--titleHistory\"\n\t   data-xf-click=\"toggle\" data-target=\".js-titleHistoryTarget\">{{ phrase('title_history') }}</a>\n\t\n\t<xf:set var=\"$hasActionBarMenu\" value=\"{{ true }}\" />\n</xf:if>\n\n$2$3\n\n<xf:if is=\"$titleHistoryLink\">\n\t<div class=\"js-titleHistoryTarget toggleTarget\"\n\t\t\t data-href=\"{$titleHistoryLink}\"\n\t\t\t data-load-selector=\".js-titleHistoryTarget\"></div>\n</xf:if>"
+}
