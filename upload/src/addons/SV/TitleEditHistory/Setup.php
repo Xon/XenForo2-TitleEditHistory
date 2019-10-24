@@ -29,7 +29,10 @@ class Setup extends AbstractSetup
 
         foreach ($this->getAlterTables() as $tableName => $callback)
         {
-            $sm->alterTable($tableName, $callback);
+            if ($this->tableExists($tableName))
+            {
+                $sm->alterTable($tableName, $callback);
+            }
         }
     }
 
@@ -46,11 +49,6 @@ class Setup extends AbstractSetup
         $this->schemaManager()->alterTable('xf_thread', function (Alter $table) {
             $table->dropColumns(['edit_count', 'last_edit_date', 'last_edit_user_id']);
         });
-    }
-
-    public function upgrade2010500Step1()
-    {
-        $this->installStep1();
     }
 
     public function upgrade2010600Step1()
@@ -74,7 +72,10 @@ class Setup extends AbstractSetup
 
         foreach ($this->getRemoveAlterTables() as $tableName => $callback)
         {
-            $sm->alterTable($tableName, $callback);
+            if ($this->tableExists($tableName))
+            {
+                $sm->alterTable($tableName, $callback);
+            }
         }
     }
 
@@ -105,7 +106,7 @@ class Setup extends AbstractSetup
 
     public static $supportedAddOns = [
         'XFRM' => true,
-        'XFMG' => true
+        'XFMG' => true,
     ];
 
     /**
