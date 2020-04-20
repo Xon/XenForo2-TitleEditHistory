@@ -24,6 +24,7 @@ class Editor extends XFCP_Editor implements EditorInterface
      */
     public function setTitle($title, $description = null)
     {
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
         $this->setupTitleForEditHistory($title, $description);
     }
 
