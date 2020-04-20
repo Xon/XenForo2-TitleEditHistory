@@ -38,8 +38,7 @@ class Thread extends XFCP_Thread implements IHistoryTrackedTitle
      * @param string|null $error
      * @return bool
      */
-    public function canViewTitleHistory(/** @noinspection PhpUnusedParameterInspection */
-        &$error = null)
+    public function canViewTitleHistory(&$error = null)
     {
         if (!\XF::visitor()->user_id)
         {

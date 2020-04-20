@@ -30,7 +30,6 @@ interface EditorInterface
 
     public function save();
 
-    /** @noinspection PhpDocSignatureInspection */
     /**
      * @return Entity|IHistoryTrackedTitle
      */

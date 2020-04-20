@@ -67,7 +67,6 @@ trait EditTitleHistoryTrait
 
         if (isset($content->sv_prefix_ids))
         {
-            /** @noinspection PhpUndefinedFieldInspection */
             $prefixIds = $content->sv_prefix_ids;
             $prefixes = [];
             foreach ($prefixIds AS $prefixId)
@@ -76,7 +75,7 @@ trait EditTitleHistoryTrait
             }
             $prefix = implode(" ", $prefixes) . ' ';
         }
-        else if (isset($content->Prefix))
+        else if ($content->isValidRelation('Prefix'))
         {
             $prefix = $content->getRelation('Prefix') ? "[" . $content->getRelation('Prefix')->getTitle() . "] " : "";
         }
@@ -119,7 +118,6 @@ trait EditTitleHistoryTrait
             return [];
         }
 
-        /** @noinspection PhpUndefinedMethodInspection */
         return $content->getBreadcrumbs();
     }
 

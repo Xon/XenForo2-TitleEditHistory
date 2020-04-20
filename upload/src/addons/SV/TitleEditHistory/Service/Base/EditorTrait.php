@@ -2,6 +2,7 @@
 
 namespace SV\TitleEditHistory\Service\Base;
 
+use SV\TitleEditHistory\Entity\IHistoryTrackedTitle;
 use XF\Mvc\Entity\Entity;
 
 trait EditorTrait
@@ -44,9 +45,8 @@ trait EditorTrait
      */
     public function setTitle($title)
     {
-        /** @var Entity $content */
+        /** @var IHistoryTrackedTitle|Entity $content */
         $content = $this->getContent();
-        /** @noinspection PhpUndefinedMethodInspection */
         $editKeys = $content->getTitleEditKeys();
 
         $oldTitle = $content->get($editKeys['title']);
@@ -94,7 +94,7 @@ trait EditorTrait
     }
 
     /**
-     * @return \XF\Entity\Thread
+     * @return Entity
      */
     protected function _save()
     {

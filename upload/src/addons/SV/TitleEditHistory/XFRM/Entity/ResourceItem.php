@@ -38,8 +38,7 @@ class ResourceItem extends XFCP_ResourceItem implements IHistoryTrackedTitle
      * @param string|null $error
      * @return bool
      */
-    public function canViewTitleHistory(/** @noinspection PhpUnusedParameterInspection */
-        &$error = null)
+    public function canViewTitleHistory(&$error = null)
     {
         $visitor = \XF::visitor();
 
