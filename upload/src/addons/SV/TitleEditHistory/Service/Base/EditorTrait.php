@@ -42,8 +42,9 @@ trait EditorTrait
 
     /**
      * @param string $title
+     * @param mixed  ...$args
      */
-    public function setTitle($title)
+    public function setTitle($title, ...$args)
     {
         /** @var IHistoryTrackedTitle|Entity $content */
         $content = $this->getContent();

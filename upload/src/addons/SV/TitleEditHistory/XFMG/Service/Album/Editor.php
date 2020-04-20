@@ -28,7 +28,7 @@ class Editor extends XFCP_Editor implements EditorInterface
     }
 
     /**
-     * @return IHistoryTrackedTitle
+     * @return IHistoryTrackedTitle|\XFMG\Entity\Album
      */
     public function getContent()
     {
