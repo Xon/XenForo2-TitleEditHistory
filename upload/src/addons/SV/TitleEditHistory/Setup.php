@@ -51,11 +51,6 @@ class Setup extends AbstractSetup
         });
     }
 
-    public function upgrade2010600Step1()
-    {
-        $this->installStep1();
-    }
-
     public function uninstallStep1()
     {
         $sm = $this->schemaManager();
@@ -108,6 +103,16 @@ class Setup extends AbstractSetup
         'XFRM' => true,
         'XFMG' => true,
     ];
+
+    public function postUpgrade($previousVersion, array &$stateChanges)
+    {
+        $this->installStep1();
+    }
+
+    public function postRebuild()
+    {
+        $this->installStep1();
+    }
 
     /**
      * @return array
