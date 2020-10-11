@@ -77,7 +77,8 @@ trait EditTitleHistoryTrait
         }
         else if ($content->isValidRelation('Prefix'))
         {
-            $prefix = $content->getRelation('Prefix') ? "[" . $content->getRelation('Prefix')->getTitle() . "] " : "";
+            $prefixRelation = $content->getRelation('Prefix');
+            $prefix = $prefixRelation ? "[" . $prefixRelation->getTitle() . "] " : "";
         }
 
         $editKeys = $content->getTitleEditKeys();
