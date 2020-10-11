@@ -2,22 +2,17 @@
     "legacy_addon_id": "SV_TitleEditHistory",
     "title": "Content Title Edit History",
     "description": "Logs title changes to the XF edit history system.",
-    "version_id": 2020200,
-    "version_string": "2.2.2",
+    "version_id": 2030000,
+    "version_string": "2.3.0",
     "dev": "Xon",
     "dev_url": "https://atelieraphelion.com",
     "faq_url": "",
     "support_url": "https://xenforo.com/community/resources/thread-title-edit-history.6158/",
     "extra_urls": [],
     "require": {
-        "XF": [
-            2010070,
-            "XenForo 2.1.0+"
-        ],
-        "php": [
-            "5.6.0",
-            "PHP 5.6.0+"
-        ]
+        "XF": [2010070, "XenForo 2.1.0+"],
+        "php": ["7.0.0", "PHP 7.0.0+"],
+        "SV/StandardLib": [1000000,"Standard Library by Xon v1.0.0+"]
     },
     "icon": "fa-list-ul"
 }

@@ -2,7 +2,7 @@
 
 namespace SV\TitleEditHistory;
 
-use SV\Utils\InstallerHelper;
+use SV\StandardLib\InstallerHelper;
 use XF\AddOn\AbstractSetup;
 use XF\AddOn\StepRunnerInstallTrait;
 use XF\AddOn\StepRunnerUninstallTrait;
@@ -11,7 +11,6 @@ use XF\Db\Schema\Alter;
 
 class Setup extends AbstractSetup
 {
-    // from https://github.com/Xon/XenForo2-Utils cloned to src/addons/SV/Utils
     use InstallerHelper;
     use StepRunnerInstallTrait;
     use StepRunnerUpgradeTrait;
@@ -26,6 +25,11 @@ class Setup extends AbstractSetup
             $sm->createTable($tableName, $callback);
             $sm->alterTable($tableName, $callback);
         }
+    }
+
+    public function installStep2()
+    {
+        $sm = $this->schemaManager();
 
         foreach ($this->getAlterTables() as $tableName => $callback)
         {
@@ -107,11 +111,13 @@ class Setup extends AbstractSetup
     public function postUpgrade($previousVersion, array &$stateChanges)
     {
         $this->installStep1();
+        $this->installStep2();
     }
 
     public function postRebuild()
     {
         $this->installStep1();
+        $this->installStep2();
     }
 
     /**
