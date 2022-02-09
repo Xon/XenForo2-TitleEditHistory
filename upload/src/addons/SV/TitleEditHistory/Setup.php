@@ -96,14 +96,9 @@ class Setup extends AbstractSetup
         );
     }
 
-    /**
-     * @return array
-     */
-    protected function getTables()
+    protected function getTables(): array
     {
-        $tables = [];
-
-        return $tables;
+        return [];
     }
 
     public static $supportedAddOns = [
@@ -123,67 +118,50 @@ class Setup extends AbstractSetup
         $this->installStep2();
     }
 
-    /**
-     * @version 2.3.1
-     *
-     * @return array
-     */
-    protected function getAlterTables()
+    protected function getAlterTables(): array
     {
-        $tables = [];
-
-        $tables['xf_thread'] = function (Alter $table) {
-            $this->addOrChangeColumn($table, 'thread_title_edit_count')->type('int')->nullable(false)->setDefault(0);
-            $this->addOrChangeColumn($table, 'thread_title_last_edit_date')->type('int')->nullable(false)->setDefault(0);
-            $this->addOrChangeColumn($table, 'thread_title_last_edit_user_id')->type('int')->nullable(false)->setDefault(0);
-        };
-
-        $tables['xf_rm_resource'] = function (Alter $table) {
-            $this->addOrChangeColumn($table, 'resource_title_edit_count')->type('int')->nullable(false)->setDefault(0);
-            $this->addOrChangeColumn($table, 'resource_title_last_edit_date')->type('int')->nullable(false)->setDefault(0);
-            $this->addOrChangeColumn($table, 'resource_title_last_edit_user_id')->type('int')->nullable(false)->setDefault(0);
-        };
-
-        $tables['xf_mg_media_item'] = function (Alter $table) {
-            $this->addOrChangeColumn($table, 'media_title_edit_count')->type('int')->nullable(false)->setDefault(0);
-            $this->addOrChangeColumn($table, 'media_title_last_edit_date')->type('int')->nullable(false)->setDefault(0);
-            $this->addOrChangeColumn($table, 'media_title_last_edit_user_id')->type('int')->nullable(false)->setDefault(0);
-        };
-
-        $tables['xf_mg_album'] = function (Alter $table) {
-            $this->addOrChangeColumn($table, 'album_title_edit_count')->type('int')->nullable(false)->setDefault(0);
-            $this->addOrChangeColumn($table, 'album_title_last_edit_date')->type('int')->nullable(false)->setDefault(0);
-            $this->addOrChangeColumn($table, 'album_title_last_edit_user_id')->type('int')->nullable(false)->setDefault(0);
-        };
-
-        return $tables;
+        return [
+            'xf_thread' => function (Alter $table) {
+                $this->addOrChangeColumn($table, 'thread_title_edit_count')->type('int')->nullable(false)->setDefault(0);
+                $this->addOrChangeColumn($table, 'thread_title_last_edit_date')->type('int')->nullable(false)->setDefault(0);
+                $this->addOrChangeColumn($table, 'thread_title_last_edit_user_id')->type('int')->nullable(false)->setDefault(0);
+            },
+            'xf_rm_resource' => function (Alter $table) {
+                $this->addOrChangeColumn($table, 'resource_title_edit_count')->type('int')->nullable(false)->setDefault(0);
+                $this->addOrChangeColumn($table, 'resource_title_last_edit_date')->type('int')->nullable(false)->setDefault(0);
+                $this->addOrChangeColumn($table, 'resource_title_last_edit_user_id')->type('int')->nullable(false)->setDefault(0);
+            },
+            'xf_mg_media_item' => function (Alter $table) {
+                $this->addOrChangeColumn($table, 'media_title_edit_count')->type('int')->nullable(false)->setDefault(0);
+                $this->addOrChangeColumn($table, 'media_title_last_edit_date')->type('int')->nullable(false)->setDefault(0);
+                $this->addOrChangeColumn($table, 'media_title_last_edit_user_id')->type('int')->nullable(false)->setDefault(0);
+            },
+            'xf_mg_album' => function (Alter $table) {
+                $this->addOrChangeColumn($table, 'album_title_edit_count')->type('int')->nullable(false)->setDefault(0);
+                $this->addOrChangeColumn($table, 'album_title_last_edit_date')->type('int')->nullable(false)->setDefault(0);
+                $this->addOrChangeColumn($table, 'album_title_last_edit_user_id')->type('int')->nullable(false)->setDefault(0);
+            },
+        ];
     }
 
-    /**
-     * @version 2.3.1
-     *
-     * @return array
-     */
-    protected function getRemoveAlterTables()
+    protected function getRemoveAlterTables(): array
     {
-        $tables = [];
+        return [
+            'xf_thread' => function (Alter $table) {
+                $table->dropColumns(['thread_title_edit_count', 'thread_title_last_edit_date', 'thread_title_last_edit_user_id']);
+            },
 
-        $tables['xf_thread'] = function (Alter $table) {
-            $table->dropColumns(['thread_title_edit_count', 'thread_title_last_edit_date', 'thread_title_last_edit_user_id']);
-        };
+            'xf_rm_resource' => function (Alter $table) {
+                $table->dropColumns(['resource_title_edit_count', 'resource_title_last_edit_date', 'resource_title_last_edit_user_id']);
+            },
 
-        $tables['xf_rm_resource'] = function (Alter $table) {
-            $table->dropColumns(['resource_title_edit_count', 'resource_title_last_edit_date', 'resource_title_last_edit_user_id']);
-        };
+            'xf_mg_media_item' => function (Alter $table) {
+                $table->dropColumns(['media_title_edit_count', 'media_title_last_edit_date', 'media_title_last_edit_user_id']);
+            },
 
-        $tables['xf_mg_media_item'] = function (Alter $table) {
-            $table->dropColumns(['media_title_edit_count', 'media_title_last_edit_date', 'media_title_last_edit_user_id']);
-        };
-
-        $tables['xf_mg_album'] = function (Alter $table) {
-            $table->dropColumns(['album_title_edit_count', 'album_title_last_edit_date', 'album_title_last_edit_user_id']);
-        };
-
-        return $tables;
+            'xf_mg_album' => function (Alter $table) {
+                $table->dropColumns(['album_title_edit_count', 'album_title_last_edit_date', 'album_title_last_edit_user_id']);
+            },
+        ];
     }
 }
