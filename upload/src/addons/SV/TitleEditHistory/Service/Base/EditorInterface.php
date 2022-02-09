@@ -1,4 +1,7 @@
 <?php
+/**
+ * @noinspection PhpMissingParamTypeInspection
+ */
 
 namespace SV\TitleEditHistory\Service\Base;
 
@@ -27,7 +30,9 @@ interface EditorInterface
      */
     public function setTitle($title);
 
-
+    /**
+     * @return Entity|IHistoryTrackedTitle
+     */
     public function save();
 
     /**

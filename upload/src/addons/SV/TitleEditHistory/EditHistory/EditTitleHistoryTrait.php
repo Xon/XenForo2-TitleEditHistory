@@ -1,9 +1,10 @@
-<?php
+<?php /** @noinspection PhpMissingReturnTypeInspection */
 
 namespace SV\TitleEditHistory\EditHistory;
 
 use SV\TitleEditHistory\Entity\IHistoryTrackedTitle;
 use SV\TitleEditHistory\Service\Base\EditorInterface;
+use XF\Entity\AbstractPrefix;
 use XF\Entity\EditHistory;
 use XF\Mvc\Entity\Entity;
 
@@ -43,12 +44,12 @@ trait EditTitleHistoryTrait
         $editor->logEdit(false);
         $editor->setTitle($history->old_text);
 
-        if (!$previous || $previous->edit_user_id != $content->user_id)
+        if ($previous === null || $previous->edit_user_id !== $content->user_id)
         {
             // if previous is a mod edit, don't show as it may have been hidden
             $content->set($editKeys['edit_count'], 0);
         }
-        else if ($previous && $previous->edit_user_id == $content->user_id)
+        else
         {
             $content->set($editKeys['last_edit_date'], $previous->edit_date);
             $content->set($editKeys['last_edit_user_id'], $previous->edit_user_id);
@@ -77,6 +78,7 @@ trait EditTitleHistoryTrait
         }
         else if ($content->isValidRelation('Prefix'))
         {
+            /** @var AbstractPrefix $prefixRelation */
             $prefixRelation = $content->getRelation('Prefix');
             $prefix = $prefixRelation ? "[" . $prefixRelation->getTitle() . "] " : "";
         }
@@ -122,14 +124,8 @@ trait EditTitleHistoryTrait
         return $content->getBreadcrumbs();
     }
 
-    /**
-     * @param             $text
-     * @param Entity|null $content
-     * @return string
-     */
-    public function getHtmlFormattedContent($text, /** @noinspection PhpUnusedParameterInspection */
-                                            Entity $content = null)
+    public function getHtmlFormattedContent(string $text, Entity $content = null): string
     {
-        return htmlspecialchars($text, ENT_QUOTES, 'UTF-8', false);
+        return \htmlspecialchars($text, ENT_QUOTES, 'UTF-8', false);
     }
 }

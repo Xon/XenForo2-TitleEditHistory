@@ -2,7 +2,6 @@
 
 namespace SV\TitleEditHistory\XFMG\Service\Media;
 
-use SV\TitleEditHistory\Entity\IHistoryTrackedTitle;
 use SV\TitleEditHistory\Service\Base\EditorInterface;
 use SV\TitleEditHistory\Service\Base\EditorTrait;
 
@@ -28,9 +27,6 @@ class Editor extends XFCP_Editor implements EditorInterface
         $this->setupTitleForEditHistory($title, $description);
     }
 
-    /**
-     * @return IHistoryTrackedTitle|\XFMG\Entity\MediaItem
-     */
     public function getContent()
     {
         return $this->getMediaItem();

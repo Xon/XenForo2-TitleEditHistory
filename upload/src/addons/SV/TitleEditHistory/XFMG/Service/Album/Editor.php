@@ -4,7 +4,6 @@ namespace SV\TitleEditHistory\XFMG\Service\Album;
 
 use SV\TitleEditHistory\Service\Base\EditorInterface;
 use SV\TitleEditHistory\Service\Base\EditorTrait;
-use SV\TitleEditHistory\Entity\IHistoryTrackedTitle;
 
 /**
  * Class Editor
@@ -28,9 +27,6 @@ class Editor extends XFCP_Editor implements EditorInterface
         $this->setupTitleForEditHistory($title, $description);
     }
 
-    /**
-     * @return IHistoryTrackedTitle|\XFMG\Entity\Album
-     */
     public function getContent()
     {
         return $this->getAlbum();

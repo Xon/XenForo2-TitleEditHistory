@@ -1,4 +1,7 @@
 <?php
+/**
+ * @noinspection PhpMissingParamTypeInspection
+ */
 
 namespace SV\TitleEditHistory\Service\Base;
 
@@ -45,6 +48,7 @@ trait EditorTrait
      */
     public function setTitle($title)
     {
+        /** @var EditorInterface $this */
         /** @var IHistoryTrackedTitle|Entity $content */
         $content = $this->getContent();
         $editKeys = $content->getTitleEditKeys();
@@ -72,6 +76,7 @@ trait EditorTrait
     protected function setupEditHistory($oldTitle)
     {
         /** @var EditorInterface $this */
+        /** @var IHistoryTrackedTitle|Entity $content */
         $content = $this->getContent();
         $editKeys = $content->getTitleEditKeys();
 
@@ -95,10 +100,12 @@ trait EditorTrait
 
     /**
      * @return Entity
+     * @noinspection PhpMissingReturnTypeInspection
      */
     protected function _save()
     {
         /** @var EditorInterface $this */
+        /** @var IHistoryTrackedTitle|Entity $content */
         $content = $this->getContent();
         $editKeys = $content->getTitleEditKeys();
 
@@ -107,7 +114,7 @@ trait EditorTrait
         $db = \XF::db();
         $db->beginTransaction();
 
-        /** @noinspection PhpUndefinedClassInspection */
+        /** @noinspection PhpMultipleClassDeclarationsInspection */
         $content = parent::_save();
 
         if ($this->oldTitle)

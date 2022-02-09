@@ -2,7 +2,6 @@
 
 namespace SV\TitleEditHistory\XF\Service\Thread;
 
-use SV\TitleEditHistory\Entity\IHistoryTrackedTitle;
 use SV\TitleEditHistory\Service\Base\EditorInterface;
 use SV\TitleEditHistory\Service\Base\EditorTrait;
 
@@ -13,9 +12,6 @@ class Editor extends XFCP_Editor implements EditorInterface
 {
     use EditorTrait;
 
-    /**
-     * @return \XF\Entity\Thread|\XF\Mvc\Entity\Entity|IHistoryTrackedTitle
-     */
     public function getContent()
     {
         return $this->thread;

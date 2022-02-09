@@ -1,12 +1,13 @@
 <?php
+/** @noinspection PhpMissingReturnTypeInspection */
 
 namespace SV\TitleEditHistory\Pub\Controller;
 
 use XF\Mvc\ParameterBag;
+use XF\Mvc\Reply\AbstractReply;
 
 trait TitleHistoryTrait
 {
-    /** @noinspection PhpDocSignatureInspection */
     /**
      * @return array
      * @throws \LogicException
@@ -18,7 +19,7 @@ trait TitleHistoryTrait
 
     /**
      * @param ParameterBag $params
-     * @return \XF\Mvc\Reply\Reroute
+     * @return AbstractReply
      */
     public function actionTitleHistory(ParameterBag $params)
     {
