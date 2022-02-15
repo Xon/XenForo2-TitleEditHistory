@@ -45,6 +45,7 @@ trait EditorTrait
 
     /**
      * @param string $title
+     * @noinspection PhpMultipleClassDeclarationsInspection
      */
     public function setTitle($title)
     {
@@ -55,9 +56,9 @@ trait EditorTrait
 
         $oldTitle = $content->get($editKeys['title']);
 
-        if (is_callable('parent::setTitle'))
+        if (is_callable(parent::class.'::setTitle'))
         {
-            call_user_func('parent::setTitle', ...func_get_args());
+            parent::setTitle(...func_get_args());
         }
         else
         {
