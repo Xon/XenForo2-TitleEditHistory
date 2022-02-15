@@ -124,7 +124,12 @@ trait EditTitleHistoryTrait
         return $content->getBreadcrumbs();
     }
 
-    public function getHtmlFormattedContent(string $text, Entity $content = null): string
+    /**
+     * @param string      $text
+     * @param Entity|null $content
+     * @return string
+     */
+    public function getHtmlFormattedContent($text, Entity $content = null)
     {
         return \htmlspecialchars($text, ENT_QUOTES, 'UTF-8', false);
     }
