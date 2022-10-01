@@ -52,7 +52,7 @@ class MediaItem extends XFCP_MediaItem implements IHistoryTrackedTitle
      */
     public function canEditTitle(&$error = null)
     {
-        if (is_callable(parent::class.'::canEditTitle'))
+        if (is_callable([parent::class,'canEditTitle']))
         {
             /** @noinspection PhpUndefinedMethodInspection */
             return parent::canEditTitle($error);

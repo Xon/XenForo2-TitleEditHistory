@@ -56,7 +56,7 @@ trait EditorTrait
 
         $oldTitle = $content->get($editKeys['title']);
 
-        if (is_callable(parent::class.'::setTitle'))
+        if (is_callable([parent::class,'setTitle']))
         {
             parent::setTitle(...func_get_args());
         }
