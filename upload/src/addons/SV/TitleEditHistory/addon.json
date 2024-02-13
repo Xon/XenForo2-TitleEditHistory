@@ -7,8 +7,11 @@
     "dev": "Xon",
     "dev_url": "https://atelieraphelion.com",
     "faq_url": "",
-    "support_url": "https://xenforo.com/community/resources/thread-title-edit-history.6158/",
-    "extra_urls": [],
+    "support_url": "https://xenforo.com/community/resources/content-title-edit-history.6158/",
+    "extra_urls": {
+        "License": "https://atelieraphelion.com/products/content-title-edit-history.217/copyright",
+        "Add-on site": "https://atelieraphelion.com/products/content-title-edit-history.217/"
+    },
     "require": {
         "SV/StandardLib": [
             2001180000,
