@@ -1,61 +1,31 @@
 <?php
+/**
+ * @noinspection PhpUnusedParameterInspection
+ */
 
 namespace SV\TitleEditHistory;
 
 use XF\AddOn\AddOn;
 use XF\Entity\AddOn as AddOnEntity;
 
-/**
- * @version 2.3.1
- */
-class InstallerListener
+abstract class InstallerListener
 {
-    /**
-     * @version 2.3.1
-     *
-     * @param AddOn $addOn
-     * @param AddOnEntity $installedAddOn
-     * @param array $json
-     *
-     * @return void
-     */
-    public static function addonPostRebuild(/** @noinspection PhpUnusedParameterInspection */
-        AddOn $addOn,
-        AddOnEntity $installedAddOn,
-        array $json
-    )
+    public static function addonPostRebuild(AddOn $addOn, AddOnEntity $installedAddOn, array $json): void
     {
         static::runInstallSteps($addOn);
     }
 
-    /**
-     * @version 2.3.1
-     *
-     * @param AddOn $addOn
-     * @param AddOnEntity $installedAddOn
-     * @param array $json
-     * @param array $stateChanges
-     *
-     * @return void
-     */
-    public static function addonPostInstall(/** @noinspection PhpUnusedParameterInspection */
-        AddOn $addOn,
-        AddOnEntity $installedAddOn,
-        array $json,
-        array &$stateChanges
-    )
+    public static function addonPostInstall(AddOn $addOn, AddOnEntity $installedAddOn, array $json, array &$stateChanges): void
     {
         static::runInstallSteps($addOn);
     }
 
-    /**
-     * @since 2.3.1
-     *
-     * @param AddOn $addOn
-     *
-     * @return void
-     */
-    protected static function runInstallSteps(AddOn $addOn)
+    public static function addonPostUninstall(AddOn $addOn, $addOnId, array $json): void
+    {
+        static::runInstallSteps($addOn);
+    }
+
+    protected static function runInstallSteps(AddOn $addOn): void
     {
         if (empty(Setup::$supportedAddOns[$addOn->getAddOnId()]))
         {
@@ -64,7 +34,7 @@ class InstallerListener
 
         // kick off the installer
         $setup = new Setup($addOn, \XF::app());
-        $setup->installStep1();
-        $setup->installStep2();
+        $setup->applySchema();
+        $setup->applyContentTypeFields();
     }
 }

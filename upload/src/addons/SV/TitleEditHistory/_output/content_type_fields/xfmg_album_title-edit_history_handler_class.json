@@ -1,5 +1,0 @@
-{
-    "content_type": "xfmg_album_title",
-    "field_name": "edit_history_handler_class",
-    "field_value": "SV\\TitleEditHistory\\EditHistory\\Album"
-}

@@ -8,6 +8,9 @@ use XF\AddOn\StepRunnerInstallTrait;
 use XF\AddOn\StepRunnerUninstallTrait;
 use XF\AddOn\StepRunnerUpgradeTrait;
 use XF\Db\Schema\Alter;
+use XF\Entity\ContentTypeField;
+use function array_values;
+use function str_replace;
 
 /**
  * @version 2.3.1
@@ -19,31 +22,17 @@ class Setup extends AbstractSetup
     use StepRunnerUpgradeTrait;
     use StepRunnerUninstallTrait;
 
-    public function installStep1()
+    public function installStep1(): void
     {
-        $sm = $this->schemaManager();
-
-        foreach ($this->getTables() as $tableName => $callback)
-        {
-            $sm->createTable($tableName, $callback);
-            $sm->alterTable($tableName, $callback);
-        }
+        $this->applySchema();
     }
 
-    public function installStep2()
+    public function installStep2(): void
     {
-        $sm = $this->schemaManager();
-
-        foreach ($this->getAlterTables() as $tableName => $callback)
-        {
-            if ($this->tableExists($tableName))
-            {
-                $sm->alterTable($tableName, $callback);
-            }
-        }
+        $this->applyContentTypeFields();
     }
 
-    public function upgrade10050Step1()
+    public function upgrade10050Step1(): void
     {
         // rename if possible
         $this->schemaManager()->alterTable('xf_thread', function (Alter $table) {
@@ -58,7 +47,7 @@ class Setup extends AbstractSetup
         });
     }
 
-    public function uninstallStep1()
+    public function uninstallStep1(): void
     {
         $sm = $this->schemaManager();
 
@@ -68,7 +57,7 @@ class Setup extends AbstractSetup
         }
     }
 
-    public function uninstallStep2()
+    public function uninstallStep2(): void
     {
         $sm = $this->schemaManager();
 
@@ -81,19 +70,97 @@ class Setup extends AbstractSetup
         }
     }
 
-    public function uninstallStep3()
+    public function uninstallStep3(): void
     {
-        $this->db()->query(
-            "
-            DELETE FROM xf_edit_history
-            WHERE content_type IN (
-              'thread_title',
-              'resource_title',
-              'xfmg_media_title',
-              'xfmg_album_title'
-              )
-        "
-        );
+        $contentTypes = [];
+        foreach (static::$supportedAddOns as $data)
+        {
+            foreach ($data as $contentType => $contentTypeFields)
+            {
+                $contentTypes[$contentType] = $contentType;
+            }
+        }
+        if (count($contentTypes) === 0)
+        {
+            return;
+        }
+
+        $db = $this->db();
+        $db->query('DELETE  FROM xf_edit_history WHERE content_type IN (' . $db->quote($contentTypes) . ')');
+    }
+
+    public function uninstallStep4(): void
+    {
+        // ensure this add-on removes any content type fields
+        // development mode could have been turned on or off at any time
+        $this->applyContentTypeFields(true);
+    }
+
+    public function applyContentTypeFields(bool $deleteAll = false): void
+    {
+        $db = $this->db();
+        $em = $this->app()->em();
+        $db->beginTransaction();
+        foreach (static::$supportedAddOns as $addon => $data)
+        {
+            foreach ($data as $contentType => $contentTypeFields)
+            {
+                foreach ($contentTypeFields as $fieldName => $class)
+                {
+                    /** @var ContentTypeField|null $field */
+                    $field = $em->find('XF:ContentTypeField', [$contentType, $fieldName]);
+                    if (!$deleteAll && \XF::isAddOnActive($addon))
+                    {
+                        if ($field === null)
+                        {
+                            /** @var ContentTypeField|null $field */
+                            $field = $em->create('XF:ContentTypeField');
+                            $field->content_type = $contentType;
+                            $field->field_name = $fieldName;
+                        }
+                        // if developer mode is enabled, do not own the content type field or the field will be exported against this add-on which impacts source control
+                        if (!\XF::$developmentMode)
+                        {
+                            $field->addon_id = 'SV\TileEditHistory';
+                        }
+                        // entity content type field needs to have a : so \XF::finder() will work as expected
+                        if ($fieldName === 'entity')
+                        {
+                            $class = str_replace('\\Entity\\',':', $class);
+                        }
+                        $field->field_value = $class;
+
+                        $field->saveIfChanged($saved, true, false);
+                    }
+                    else if ($field !== null)
+                    {
+                        $field->delete(true, false);
+                    }
+                }
+            }
+        }
+        $db->commit();
+
+        \XF::triggerRunOnce();
+    }
+
+    public function applySchema(): void
+    {
+        $sm = $this->schemaManager();
+
+        foreach ($this->getTables() as $tableName => $callback)
+        {
+            $sm->createTable($tableName, $callback);
+            $sm->alterTable($tableName, $callback);
+        }
+
+        foreach ($this->getAlterTables() as $tableName => $callback)
+        {
+            if ($this->tableExists($tableName))
+            {
+                $sm->alterTable($tableName, $callback);
+            }
+        }
     }
 
     protected function getTables(): array
@@ -102,20 +169,41 @@ class Setup extends AbstractSetup
     }
 
     public static $supportedAddOns = [
-        'XFRM' => true,
-        'XFMG' => true,
+        'XF' => [
+            'thread_title' => [
+                'edit_history_handler_class' => \SV\TitleEditHistory\EditHistory\Thread::class,
+                'entity' => \XF\Entity\Thread::class,
+            ],
+        ],
+        'XFRM' => [
+            'resource_title' => [
+                'edit_history_handler_class' => \SV\TitleEditHistory\EditHistory\ResourceItem::class,
+                'entity' => \XFRM\Entity\ResourceItem::class,
+            ],
+        ],
+        'XFMG' => [
+            'xfmg_album_title' => [
+                'edit_history_handler_class' => \SV\TitleEditHistory\EditHistory\Album::class,
+                'entity' => \XFMG\Entity\Album::class,
+            ],
+            'xfmg_media_title' => [
+                'edit_history_handler_class' => \SV\TitleEditHistory\EditHistory\MediaItem::class,
+                'entity' => \XFMG\Entity\MediaItem::class,
+            ],
+        ],
     ];
 
-    public function postUpgrade($previousVersion, array &$stateChanges)
+    public function postUpgrade($previousVersion, array &$stateChanges): void
     {
-        $this->installStep1();
-        $this->installStep2();
+        //$previousVersion = (int)$previousVersion;
+        $this->applySchema();
+        $this->applyContentTypeFields();
     }
 
-    public function postRebuild()
+    public function postRebuild(): void
     {
-        $this->installStep1();
-        $this->installStep2();
+        $this->applySchema();
+        $this->applyContentTypeFields();
     }
 
     protected function getAlterTables(): array
