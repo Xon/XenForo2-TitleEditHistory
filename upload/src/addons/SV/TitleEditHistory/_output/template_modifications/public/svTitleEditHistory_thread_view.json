@@ -1,6 +1,6 @@
 {
     "template": "thread_view",
-    "description": "",
+    "description": "Show title edit history for thread",
     "execution_order": 6158,
     "enabled": true,
     "action": "preg_replace",

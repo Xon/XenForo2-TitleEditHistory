@@ -1,6 +1,6 @@
 {
     "template": "xfrm_resource_wrapper_macros",
-    "description": "",
+    "description": "Show title edit history for resource",
     "execution_order": 10,
     "enabled": true,
     "action": "preg_replace",
