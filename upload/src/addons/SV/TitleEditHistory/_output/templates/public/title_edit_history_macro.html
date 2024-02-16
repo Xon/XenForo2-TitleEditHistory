@@ -3,7 +3,7 @@
 		  arg-path="!"
 		  arg-pathSuffix="/title-history">
 	
-<xf:if is="$content.getTitleEditCount() && $content.canViewTitleHistory()">
+<xf:if is="callable($content, 'getTitleEditCount') && $content.getTitleEditCount() && $content.canViewTitleHistory()">
 	<xf:set var="$link" value="{{ link( $path . $pathSuffix, $content) }}" />
 	<li>
 		<span class="u-concealed">
