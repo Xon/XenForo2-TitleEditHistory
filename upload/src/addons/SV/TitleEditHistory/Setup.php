@@ -7,6 +7,7 @@ use XF\AddOn\AbstractSetup;
 use XF\AddOn\StepRunnerInstallTrait;
 use XF\AddOn\StepRunnerUninstallTrait;
 use XF\AddOn\StepRunnerUpgradeTrait;
+use XF\Behavior\DevOutputWritable;
 use XF\Db\Schema\Alter;
 use XF\Entity\ContentTypeField;
 use function array_values;
@@ -101,15 +102,17 @@ class Setup extends AbstractSetup
         $db = $this->db();
         $em = $this->app()->em();
         $db->beginTransaction();
+        $fieldsToPatch = [];
         foreach (static::$supportedAddOns as $addon => $data)
         {
+            $addonIsActive = \XF::isAddOnActive($addon);
             foreach ($data as $contentType => $contentTypeFields)
             {
                 foreach ($contentTypeFields as $fieldName => $class)
                 {
                     /** @var ContentTypeField|null $field */
                     $field = $em->find('XF:ContentTypeField', [$contentType, $fieldName]);
-                    if (!$deleteAll && \XF::isAddOnActive($addon))
+                    if (!$deleteAll && $addonIsActive)
                     {
                         if ($field === null)
                         {
@@ -118,19 +121,18 @@ class Setup extends AbstractSetup
                             $field->content_type = $contentType;
                             $field->field_name = $fieldName;
                         }
-                        // if developer mode is enabled, do not own the content type field or the field will be exported against this add-on which impacts source control
-                        if (!\XF::$developmentMode)
-                        {
-                            $field->addon_id = 'SV\TileEditHistory';
-                        }
+                        // SV/TitleEditHistory is not active/valid when the rebuild code, so do not link to an
+                        $field->addon_id = '';
                         // entity content type field needs to have a : so \XF::finder() will work as expected
                         if ($fieldName === 'entity')
                         {
-                            $class = str_replace('\\Entity\\',':', $class);
+                            $class = str_replace('\\Entity\\', ':', $class);
                         }
                         $field->field_value = $class;
 
                         $field->saveIfChanged($saved, true, false);
+
+                        $fieldsToPatch[] = $field;
                     }
                     else if ($field !== null)
                     {
@@ -139,9 +141,17 @@ class Setup extends AbstractSetup
                 }
             }
         }
-        $db->commit();
 
+        // trigger contentTypes rebuild
         \XF::triggerRunOnce();
+
+        // patch database to reflect the correct add-on, so when this add-on is disabled the correct entries are also disabled
+        foreach($fieldsToPatch as $field)
+        {
+            $field->fastUpdate('addon_id', 'SV/TitleEditHistory');
+        }
+
+        $db->commit();
     }
 
     public function applySchema(): void
