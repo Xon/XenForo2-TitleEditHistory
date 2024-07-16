@@ -25,7 +25,7 @@ class ResourceItem extends XFCP_ResourceItem implements IHistoryTrackedTitle
             'content_type' => 'resource_title',
             'content_id' => 'resource_id',
             'title' => 'title',
-            'editor' => 'XFRM:ResourceItem\Edit',
+            'editor' => \XFRM\Service\ResourceItem\Edit::class,
         ];
     }
 

@@ -33,7 +33,7 @@ class Album extends XFCP_Album implements IHistoryTrackedTitle
             'content_type' => 'xfmg_album_title',
             'content_id' => 'album_id',
             'title' => 'title',
-            'editor' => 'XFMG:Album\Editor',
+            'editor' => \XFMG\Service\Album\Editor::class,
         ];
     }
 

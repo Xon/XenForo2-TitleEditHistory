@@ -2,6 +2,7 @@
 
 namespace SV\TitleEditHistory\EditHistory;
 
+use SV\StandardLib\Helper;
 use SV\TitleEditHistory\Entity\IHistoryTrackedTitle;
 use SV\TitleEditHistory\Service\Base\EditorInterface;
 use XF\Entity\AbstractPrefix;
@@ -39,7 +40,7 @@ trait EditTitleHistoryTrait
         $editKeys = $content->getTitleEditKeys();
 
         /** @var \XF\Service\AbstractService|EditorInterface $editor */
-        $editor = \XF::app()->service($editKeys['editor'], $content);
+        $editor = Helper::service($editKeys['editor'], $content);
 
         $editor->logEdit(false);
         $editor->setTitle($history->old_text);

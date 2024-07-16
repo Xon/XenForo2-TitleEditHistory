@@ -33,7 +33,7 @@ class MediaItem extends XFCP_MediaItem implements IHistoryTrackedTitle
             'content_type' => 'xfmg_media_title',
             'content_id' => 'media_id',
             'title' => 'title',
-            'editor' => 'XFMG:Media\Editor',
+            'editor' => \XFMG\Service\Media\Editor::class,
         ];
     }
 

@@ -25,7 +25,7 @@ class Thread extends XFCP_Thread implements IHistoryTrackedTitle
             'content_type'      => 'thread_title',
             'content_id'        => 'thread_id',
             'title'             => 'title',
-            'editor'            => 'XF:Thread\Editor',
+            'editor'            => \XF\Service\Thread\Editor::Class,
         ];
     }
 

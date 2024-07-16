@@ -2,15 +2,14 @@
 
 namespace SV\TitleEditHistory;
 
+use SV\StandardLib\Helper;
 use SV\StandardLib\InstallerHelper;
 use XF\AddOn\AbstractSetup;
 use XF\AddOn\StepRunnerInstallTrait;
 use XF\AddOn\StepRunnerUninstallTrait;
 use XF\AddOn\StepRunnerUpgradeTrait;
-use XF\Behavior\DevOutputWritable;
 use XF\Db\Schema\Alter;
 use XF\Entity\ContentTypeField;
-use function array_values;
 use function str_replace;
 
 /**
@@ -105,7 +104,7 @@ class Setup extends AbstractSetup
         $fieldsToPatch = [];
         foreach (static::$supportedAddOns as $addon => $data)
         {
-            $addonIsActive = \XF::isAddOnActive($addon);
+            $addonIsActive = Helper::isAddOnActive($addon);
             foreach ($data as $contentType => $contentTypeFields)
             {
                 foreach ($contentTypeFields as $fieldName => $class)

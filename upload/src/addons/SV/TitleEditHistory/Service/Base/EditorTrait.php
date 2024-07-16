@@ -5,6 +5,7 @@
 
 namespace SV\TitleEditHistory\Service\Base;
 
+use SV\StandardLib\Helper;
 use SV\TitleEditHistory\Entity\IHistoryTrackedTitle;
 use XF\Mvc\Entity\Entity;
 
@@ -120,8 +121,7 @@ trait EditorTrait
 
         if ($this->oldTitle)
         {
-            /** @var \XF\Repository\EditHistory $repo */
-            $repo = $this->repository('XF:EditHistory');
+            $repo = Helper::repository(\XF\Repository\EditHistory::class);
             $repo->insertEditHistory($editKeys['content_type'], $content, $visitor, $this->oldTitle, \XF::app()->request()->getIp());
         }
 
