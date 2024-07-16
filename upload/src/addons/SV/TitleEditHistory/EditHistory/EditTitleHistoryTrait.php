@@ -36,7 +36,7 @@ trait EditTitleHistoryTrait
      * @param EditHistory|null            $previous
      * @return mixed
      */
-    public function revertToVersion(Entity $content, EditHistory $history, EditHistory $previous = null)
+    public function revertToVersion(Entity $content, EditHistory $history, ?EditHistory $previous = null)
     {
         $editKeys = $content->getTitleEditKeys();
 
@@ -131,7 +131,7 @@ trait EditTitleHistoryTrait
      * @param Entity|null $content
      * @return string
      */
-    public function getHtmlFormattedContent($text, Entity $content = null): string
+    public function getHtmlFormattedContent($text, ?Entity $content = null): string
     {
         return htmlspecialchars($text, ENT_QUOTES, 'UTF-8', false);
     }
