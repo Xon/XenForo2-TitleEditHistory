@@ -36,7 +36,7 @@ class Thread extends XFCP_Thread implements IHistoryTrackedTitle
         return $this->thread_title_edit_count;
     }
 
-    public function canViewTitleHistory(&$error = null): bool
+    public function canViewTitleHistory(&$error = null)
     {
         if (!\XF::visitor()->user_id)
         {

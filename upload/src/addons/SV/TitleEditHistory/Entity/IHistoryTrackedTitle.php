@@ -20,7 +20,7 @@ interface IHistoryTrackedTitle
      * @param \XF\Phrase|string|null $error
      * @return bool
      */
-    public function canViewTitleHistory(&$error = null): bool;
+    public function canViewTitleHistory(&$error = null);
 
     /**
      * @param \XF\Phrase|string|null $error
