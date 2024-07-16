@@ -9,14 +9,12 @@ use SV\TitleEditHistory\Entity\IHistoryTrackedTitle;
 use XF\Mvc\Entity\Structure;
 
 /**
- * Class Album
- *
- * @package SV\TitleEditHistory\XFMG\Entity
+ * @extends \XFMG\Entity\Album
  *
  * COLUMNS
- * @property int album_title_last_edit_date
- * @property int album_title_last_edit_user_id
- * @property int album_title_edit_count
+ * @property int $album_title_last_edit_date
+ * @property int $album_title_last_edit_user_id
+ * @property int $album_title_edit_count
  */
 class Album extends XFCP_Album implements IHistoryTrackedTitle
 {

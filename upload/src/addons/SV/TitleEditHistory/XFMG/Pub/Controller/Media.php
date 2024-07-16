@@ -6,9 +6,7 @@ use SV\TitleEditHistory\Entity\IHistoryTrackedTitle;
 use SV\TitleEditHistory\Pub\Controller\TitleHistoryTrait;
 
 /**
- * Class Media
- *
- * @package SV\TitleEditHistory\XFMG\Pub\Controller
+ * @extends  \XFMG\Pub\Controller\Media
  */
 class Media extends XFCP_Media
 {

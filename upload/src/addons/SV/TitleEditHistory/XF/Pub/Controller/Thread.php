@@ -5,6 +5,9 @@ namespace SV\TitleEditHistory\XF\Pub\Controller;
 use SV\TitleEditHistory\Entity\IHistoryTrackedTitle;
 use SV\TitleEditHistory\Pub\Controller\TitleHistoryTrait;
 
+/**
+ * @extends \XF\Pub\Controller\Thread
+ */
 class Thread extends XFCP_Thread
 {
     use TitleHistoryTrait;

@@ -9,11 +9,6 @@ use SV\TitleEditHistory\XFMG\Entity\MediaItem as ExtendedMediaItemEntity;
 use XF\EditHistory\AbstractHandler;
 use XF\Mvc\Entity\Entity;
 
-/**
- * Class MediaItem
- *
- * @package SV\TitleEditHistory\EditHistory
- */
 class MediaItem extends AbstractHandler
 {
     use EditTitleHistoryTrait;

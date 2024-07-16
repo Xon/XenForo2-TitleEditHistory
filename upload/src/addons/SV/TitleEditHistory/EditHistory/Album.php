@@ -9,11 +9,6 @@ use XF\EditHistory\AbstractHandler;
 use XF\Mvc\Entity\Entity;
 use SV\TitleEditHistory\XFMG\Entity\Album as ExtendedAlbumEntity;
 
-/**
- * Class Album
- *
- * @package SV\TitleEditHistory\EditHistory
- */
 class Album extends AbstractHandler
 {
     use EditTitleHistoryTrait;

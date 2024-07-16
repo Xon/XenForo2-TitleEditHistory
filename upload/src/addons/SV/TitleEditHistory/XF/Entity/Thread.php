@@ -9,9 +9,11 @@ use SV\TitleEditHistory\Entity\IHistoryTrackedTitle;
 use XF\Mvc\Entity\Structure;
 
 /**
- * @property int thread_title_last_edit_date
- * @property int thread_title_last_edit_user_id
- * @property int thread_title_edit_count
+ * @extends \XF\Entity\Thread
+ *
+ * @property int $thread_title_last_edit_date
+ * @property int $thread_title_last_edit_user_id
+ * @property int $thread_title_edit_count
  */
 class Thread extends XFCP_Thread implements IHistoryTrackedTitle
 {

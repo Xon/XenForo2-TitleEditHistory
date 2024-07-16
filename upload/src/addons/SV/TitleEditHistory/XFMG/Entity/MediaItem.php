@@ -9,14 +9,12 @@ use SV\TitleEditHistory\Entity\IHistoryTrackedTitle;
 use XF\Mvc\Entity\Structure;
 
 /**
- * Class MediaItem
- *
- * @package SV\TitleEditHistory\XFMG\Entity
+ * @extends \XFMG\Entity\MediaItem
  *
  * COLUMNS
- * @property int media_title_last_edit_date
- * @property int media_title_last_edit_user_id
- * @property int media_title_edit_count
+ * @property int $media_title_last_edit_date
+ * @property int $media_title_last_edit_user_id
+ * @property int $media_title_edit_count
  */
 class MediaItem extends XFCP_MediaItem implements IHistoryTrackedTitle
 {

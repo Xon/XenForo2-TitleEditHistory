@@ -6,7 +6,7 @@ use SV\TitleEditHistory\Service\Base\EditorInterface;
 use SV\TitleEditHistory\Service\Base\EditorTrait;
 
 /**
- * Extends \XF\Service\Thread\Editor
+ * @Extends \XF\Service\Thread\Editor
  */
 class Editor extends XFCP_Editor implements EditorInterface
 {

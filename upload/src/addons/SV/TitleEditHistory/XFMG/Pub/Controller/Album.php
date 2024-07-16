@@ -6,9 +6,7 @@ use SV\TitleEditHistory\Entity\IHistoryTrackedTitle;
 use SV\TitleEditHistory\Pub\Controller\TitleHistoryTrait;
 
 /**
- * Class Album
- *
- * @package SV\TitleEditHistory\XFMG\Pub\Controller
+ * @extends  \XFMG\Pub\Controller\Album
  */
 class Album extends XFCP_Album
 {

@@ -9,9 +9,11 @@ use SV\TitleEditHistory\Entity\IHistoryTrackedTitle;
 use XF\Mvc\Entity\Structure;
 
 /**
- * @property int resource_title_last_edit_date
- * @property int resource_title_last_edit_user_id
- * @property int resource_title_edit_count
+ * @extends \XFRM\Entity\ResourceItem
+ *
+ * @property int $resource_title_last_edit_date
+ * @property int $resource_title_last_edit_user_id
+ * @property int $resource_title_edit_count
  */
 class ResourceItem extends XFCP_ResourceItem implements IHistoryTrackedTitle
 {
