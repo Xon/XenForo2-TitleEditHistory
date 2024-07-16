@@ -2,6 +2,7 @@
 
 namespace SV\TitleEditHistory\XFMG\Pub\Controller;
 
+use SV\StandardLib\Helper;
 use SV\TitleEditHistory\Entity\IHistoryTrackedTitle;
 use SV\TitleEditHistory\Pub\Controller\TitleHistoryTrait;
 
@@ -15,7 +16,7 @@ class Media extends XFCP_Media
     protected function getTitleHistoryKeys(): array
     {
         /** @var IHistoryTrackedTitle $content */
-        $content = $this->em()->create('XFMG:MediaItem');
+        $content = Helper::createEntity(\XFMG\Entity\MediaItem::class);
 
         return $content->getTitleEditKeys();
     }

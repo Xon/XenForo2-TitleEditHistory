@@ -2,6 +2,7 @@
 
 namespace SV\TitleEditHistory\XFRM\Pub\Controller;
 
+use SV\StandardLib\Helper;
 use SV\TitleEditHistory\Entity\IHistoryTrackedTitle;
 use SV\TitleEditHistory\Pub\Controller\TitleHistoryTrait;
 
@@ -15,7 +16,7 @@ class ResourceItem extends XFCP_ResourceItem
     protected function getTitleHistoryKeys(): array
     {
         /** @var IHistoryTrackedTitle $content */
-        $content = $this->em()->create('XFRM:ResourceItem');
+        $content = Helper::createEntity(\XFRM\Entity\ResourceItem::class);
 
         return $content->getTitleEditKeys();
     }

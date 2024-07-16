@@ -99,7 +99,6 @@ class Setup extends AbstractSetup
     public function applyContentTypeFields(bool $deleteAll = false): void
     {
         $db = $this->db();
-        $em = $this->app()->em();
         $db->beginTransaction();
         $fieldsToPatch = [];
         foreach (static::$supportedAddOns as $addon => $data)
@@ -109,14 +108,13 @@ class Setup extends AbstractSetup
             {
                 foreach ($contentTypeFields as $fieldName => $class)
                 {
-                    /** @var ContentTypeField|null $field */
-                    $field = $em->find('XF:ContentTypeField', [$contentType, $fieldName]);
+                    $field = Helper::find(ContentTypeField::class, [$contentType, $fieldName]);
                     if (!$deleteAll && $addonIsActive)
                     {
                         if ($field === null)
                         {
                             /** @var ContentTypeField|null $field */
-                            $field = $em->create('XF:ContentTypeField');
+                            $field = Helper::createEntity(ContentTypeField::class);
                             $field->content_type = $contentType;
                             $field->field_name = $fieldName;
                         }

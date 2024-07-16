@@ -2,6 +2,7 @@
 
 namespace SV\TitleEditHistory\XFMG\Pub\Controller;
 
+use SV\StandardLib\Helper;
 use SV\TitleEditHistory\Entity\IHistoryTrackedTitle;
 use SV\TitleEditHistory\Pub\Controller\TitleHistoryTrait;
 
@@ -15,7 +16,7 @@ class Album extends XFCP_Album
     protected function getTitleHistoryKeys(): array
     {
         /** @var IHistoryTrackedTitle $content */
-        $content = $this->em()->create('XFMG:Album');
+        $content = Helper::createEntity(\XFMG\Entity\Album::class);
 
         return $content->getTitleEditKeys();
     }
