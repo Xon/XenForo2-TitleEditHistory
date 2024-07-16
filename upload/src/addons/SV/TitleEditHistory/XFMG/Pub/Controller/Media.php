@@ -12,10 +12,7 @@ class Media extends XFCP_Media
 {
     use TitleHistoryTrait;
 
-    /**
-     * @return mixed
-     */
-    protected function getTitleHistoryKeys()
+    protected function getTitleHistoryKeys(): array
     {
         /** @var IHistoryTrackedTitle $content */
         $content = $this->em()->create('XFMG:MediaItem');

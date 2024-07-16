@@ -1,7 +1,4 @@
 <?php
-/**
- * @noinspection PhpMissingReturnTypeInspection
- */
 
 namespace SV\TitleEditHistory\EditHistory;
 
@@ -12,19 +9,12 @@ class Thread extends AbstractHandler
 {
     use EditTitleHistoryTrait;
 
-    /**
-     * @param \SV\TitleEditHistory\XF\Entity\Thread|Entity $content
-     * @return string
-     */
-    public function getContentLink(Entity $content)
+    public function getContentLink(Entity $content): string
     {
         return \XF::app()->router('public')->buildLink('threads', $content);
     }
 
-    /**
-     * @return array
-     */
-    public function getEntityWith()
+    public function getEntityWith(): array
     {
         $visitor = \XF::visitor();
 

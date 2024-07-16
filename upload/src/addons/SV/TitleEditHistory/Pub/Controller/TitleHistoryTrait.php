@@ -1,5 +1,4 @@
 <?php
-/** @noinspection PhpMissingReturnTypeInspection */
 
 namespace SV\TitleEditHistory\Pub\Controller;
 
@@ -8,20 +7,12 @@ use XF\Mvc\Reply\AbstractReply;
 
 trait TitleHistoryTrait
 {
-    /**
-     * @return array
-     * @throws \LogicException
-     */
-    protected function getTitleHistoryKeys()
+    protected function getTitleHistoryKeys(): array
     {
         throw new \LogicException(get_called_class() . '::getTitleHistoryKeys() must be overridden');
     }
 
-    /**
-     * @param ParameterBag $params
-     * @return AbstractReply
-     */
-    public function actionTitleHistory(ParameterBag $params)
+    public function actionTitleHistory(ParameterBag $params): AbstractReply
     {
         $keys = $this->getTitleHistoryKeys();
         return $this->rerouteController(

@@ -1,4 +1,4 @@
-<?php /** @noinspection PhpMissingReturnTypeInspection */
+<?php
 
 namespace SV\TitleEditHistory\EditHistory;
 
@@ -8,6 +8,7 @@ use SV\TitleEditHistory\Service\Base\EditorInterface;
 use XF\Entity\AbstractPrefix;
 use XF\Entity\EditHistory;
 use XF\Mvc\Entity\Entity;
+use function htmlspecialchars;
 
 trait EditTitleHistoryTrait
 {
@@ -15,7 +16,7 @@ trait EditTitleHistoryTrait
      * @param IHistoryTrackedTitle|Entity $content
      * @return bool
      */
-    public function canViewHistory(Entity $content)
+    public function canViewHistory(Entity $content): bool
     {
         return $content->canViewTitleHistory() && $content->canView();
     }
@@ -24,7 +25,7 @@ trait EditTitleHistoryTrait
      * @param IHistoryTrackedTitle|Entity $content
      * @return bool
      */
-    public function canRevertContent(Entity $content)
+    public function canRevertContent(Entity $content): bool
     {
         return $content->canEditTitle();
     }
@@ -63,7 +64,7 @@ trait EditTitleHistoryTrait
      * @param IHistoryTrackedTitle|Entity $content
      * @return string
      */
-    public function getContentTitle(Entity $content)
+    public function getContentTitle(Entity $content): string
     {
         $prefix = '';
 
@@ -93,7 +94,7 @@ trait EditTitleHistoryTrait
      * @param IHistoryTrackedTitle|Entity $content
      * @return int
      */
-    public function getEditCount(Entity $content)
+    public function getEditCount(Entity $content): int
     {
         $editKeys = $content->getTitleEditKeys();
 
@@ -104,7 +105,7 @@ trait EditTitleHistoryTrait
      * @param IHistoryTrackedTitle|Entity $content
      * @return string
      */
-    public function getContentText(Entity $content)
+    public function getContentText(Entity $content): string
     {
         $editKeys = $content->getTitleEditKeys();
 
@@ -115,7 +116,7 @@ trait EditTitleHistoryTrait
      * @param IHistoryTrackedTitle|Entity $content
      * @return array
      */
-    public function getBreadcrumbs(Entity $content)
+    public function getBreadcrumbs(Entity $content): array
     {
         if (!is_callable([$content, 'getBreadcrumbs']))
         {
@@ -130,8 +131,8 @@ trait EditTitleHistoryTrait
      * @param Entity|null $content
      * @return string
      */
-    public function getHtmlFormattedContent($text, Entity $content = null)
+    public function getHtmlFormattedContent($text, Entity $content = null): string
     {
-        return \htmlspecialchars($text, ENT_QUOTES, 'UTF-8', false);
+        return htmlspecialchars($text, ENT_QUOTES, 'UTF-8', false);
     }
 }

@@ -12,7 +12,7 @@ class ResourceItem extends XFCP_ResourceItem
 {
     use TitleHistoryTrait;
 
-    protected function getTitleHistoryKeys()
+    protected function getTitleHistoryKeys(): array
     {
         /** @var IHistoryTrackedTitle $content */
         $content = $this->em()->create('XFRM:ResourceItem');

@@ -17,7 +17,7 @@ use XF\Mvc\Entity\Structure;
  */
 class Thread extends XFCP_Thread implements IHistoryTrackedTitle
 {
-    public function getTitleEditKeys()
+    public function getTitleEditKeys(): array
     {
         return [
             'edit_date'         => 'post_date',
@@ -31,19 +31,12 @@ class Thread extends XFCP_Thread implements IHistoryTrackedTitle
         ];
     }
 
-    /**
-     * @return int
-     */
-    public function getTitleEditCount()
+    public function getTitleEditCount(): int
     {
         return $this->thread_title_edit_count;
     }
 
-    /**
-     * @param string|null $error
-     * @return bool
-     */
-    public function canViewTitleHistory(&$error = null)
+    public function canViewTitleHistory(&$error = null): bool
     {
         if (!\XF::visitor()->user_id)
         {

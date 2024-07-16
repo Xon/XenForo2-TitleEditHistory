@@ -17,7 +17,7 @@ use XF\Mvc\Entity\Structure;
  */
 class ResourceItem extends XFCP_ResourceItem implements IHistoryTrackedTitle
 {
-    public function getTitleEditKeys()
+    public function getTitleEditKeys(): array
     {
         return [
             'edit_date' => 'resource_date',
@@ -31,19 +31,12 @@ class ResourceItem extends XFCP_ResourceItem implements IHistoryTrackedTitle
         ];
     }
 
-    /**
-     * @return int
-     */
-    public function getTitleEditCount()
+    public function getTitleEditCount(): int
     {
         return $this->resource_title_edit_count;
     }
 
-    /**
-     * @param string|null $error
-     * @return bool
-     */
-    public function canViewTitleHistory(&$error = null)
+    public function canViewTitleHistory(&$error = null): bool
     {
         $visitor = \XF::visitor();
 

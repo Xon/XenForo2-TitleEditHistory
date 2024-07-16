@@ -12,21 +12,15 @@ namespace SV\TitleEditHistory\Entity;
  */
 interface IHistoryTrackedTitle
 {
-    /**
-     * @return array
-     */
-    public function getTitleEditKeys();
+    public function getTitleEditKeys(): array;
 
-    /**
-     * @return int
-     */
-    public function getTitleEditCount();
+    public function getTitleEditCount(): int;
 
     /**
      * @param \XF\Phrase|string|null $error
      * @return bool
      */
-    public function canViewTitleHistory(&$error = null);
+    public function canViewTitleHistory(&$error = null): bool;
 
     /**
      * @param \XF\Phrase|string|null $error

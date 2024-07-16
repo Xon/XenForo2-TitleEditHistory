@@ -1,7 +1,4 @@
 <?php
-/**
- * @noinspection PhpMissingReturnTypeInspection
- */
 
 namespace SV\TitleEditHistory\EditHistory;
 
@@ -12,19 +9,12 @@ class ResourceItem extends AbstractHandler
 {
     use EditTitleHistoryTrait;
 
-    /**
-     * @param \SV\TitleEditHistory\XFRM\Entity\ResourceItem|Entity $content
-     * @return string
-     */
-    public function getContentLink(Entity $content)
+    public function getContentLink(Entity $content): string
     {
         return \XF::app()->router('public')->buildLink('resources', $content);
     }
 
-    /**
-     * @return array
-     */
-    public function getEntityWith()
+    public function getEntityWith(): array
     {
         $visitor = \XF::visitor();
 

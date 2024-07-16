@@ -12,7 +12,7 @@ class Thread extends XFCP_Thread
 {
     use TitleHistoryTrait;
 
-    protected function getTitleHistoryKeys()
+    protected function getTitleHistoryKeys(): array
     {
         /** @var IHistoryTrackedTitle $content */
         $content = $this->em()->create('XF:Thread');

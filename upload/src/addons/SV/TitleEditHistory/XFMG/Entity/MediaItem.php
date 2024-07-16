@@ -18,10 +18,7 @@ use XF\Mvc\Entity\Structure;
  */
 class MediaItem extends XFCP_MediaItem implements IHistoryTrackedTitle
 {
-    /**
-     * @return array
-     */
-    public function getTitleEditKeys()
+    public function getTitleEditKeys(): array
     {
         return [
             'edit_date' => 'media_date',
@@ -35,10 +32,7 @@ class MediaItem extends XFCP_MediaItem implements IHistoryTrackedTitle
         ];
     }
 
-    /**
-     * @return int
-     */
-    public function getTitleEditCount()
+    public function getTitleEditCount(): int
     {
         return $this->media_title_edit_count;
     }
@@ -59,12 +53,7 @@ class MediaItem extends XFCP_MediaItem implements IHistoryTrackedTitle
         return $this->canEdit($error);
     }
 
-    /**
-     * @param null $error
-     *
-     * @return bool
-     */
-    public function canViewTitleHistory(&$error = null)
+    public function canViewTitleHistory(&$error = null): bool
     {
         $visitor = \XF::visitor();
 
