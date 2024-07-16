@@ -3,7 +3,7 @@
     "title": "Content Title Edit History",
     "description": "Logs title changes to the XF edit history system.",
     "version_id": 1708114278,
-    "version_string": "2.4.1",
+    "version_string": "2.5.0",
     "dev": "Xon",
     "dev_url": "https://atelieraphelion.com",
     "faq_url": "",
@@ -14,8 +14,8 @@
     },
     "require": {
         "SV/StandardLib": [
-            2001180000,
-            "Standard Library by Xon v1.18.0+"
+            2001200000,
+            "Standard Library by Xon v1.20.0+"
         ],
         "XF": [
             "2.2.0",
